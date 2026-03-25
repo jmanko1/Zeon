@@ -26,10 +26,10 @@ decl	: type ID ;
 
 assign	: (type)? ID ASSIGN expr ;
 
-type	: INTTYPE | REALTYPE | LONGINT | LONGREAL ;
-
 print	: PRINT LBRAC expr RBRAC ;
-read	: ID ASSIGN READ LBRAC RBRAC ;
+read	: (type)? ID ASSIGN READ LBRAC RBRAC ;
+
+type	: INTTYPE | REALTYPE | LONGINT | LONGREAL ;
 
 expr	: LBRAC expr RBRAC		# Parens
 	| expr op=(MULT | DIV) expr	# MultDiv
@@ -72,4 +72,5 @@ LT	: '<' ;
 GTE	: '>=' ;
 LTE	: '<=' ;
 
+LINECOMMENT : '#' ~[\r\n]* -> skip ;
 WS	: [ \t\r\n]+ -> skip ;

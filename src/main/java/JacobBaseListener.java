@@ -1,4 +1,4 @@
-// Generated from C:/Users/Kuba/IdeaProjects/Compiler/src/main/resources/Jacob.g4 by ANTLR 4.13.2
+// Generated from C:/Users/jakub/IdeaProjects/LLVMCompiler/src/main/resources/Jacob.g4 by ANTLR 4.13.2
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -208,18 +208,6 @@ public class JacobBaseListener implements JacobListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterType(JacobParser.TypeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitType(JacobParser.TypeContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterPrint(JacobParser.PrintContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -239,6 +227,18 @@ public class JacobBaseListener implements JacobListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitRead(JacobParser.ReadContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterType(JacobParser.TypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitType(JacobParser.TypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

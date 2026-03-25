@@ -1,4 +1,4 @@
-// Generated from C:/Users/Kuba/IdeaProjects/Compiler/src/main/resources/Jacob.g4 by ANTLR 4.13.2
+// Generated from C:/Users/jakub/IdeaProjects/LLVMCompiler/src/main/resources/Jacob.g4 by ANTLR 4.13.2
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -19,15 +19,15 @@ public class JacobParser extends Parser {
 		READ=1, PRINT=2, INTTYPE=3, REALTYPE=4, LONGREAL=5, LONGINT=6, IF=7, WHILE=8, 
 		RETURN=9, REAL=10, INT=11, ID=12, SEMIC=13, ASSIGN=14, LBRAC=15, RBRAC=16, 
 		LCLASP=17, RCLASP=18, ADD=19, SUB=20, MULT=21, DIV=22, EQ=23, NEQ=24, 
-		GT=25, LT=26, GTE=27, LTE=28, WS=29;
+		GT=25, LT=26, GTE=27, LTE=28, LINECOMMENT=29, WS=30;
 	public static final int
 		RULE_program = 0, RULE_block = 1, RULE_stat = 2, RULE_func = 3, RULE_blockif = 4, 
-		RULE_blockwhile = 5, RULE_cond = 6, RULE_decl = 7, RULE_assign = 8, RULE_type = 9, 
-		RULE_print = 10, RULE_read = 11, RULE_expr = 12;
+		RULE_blockwhile = 5, RULE_cond = 6, RULE_decl = 7, RULE_assign = 8, RULE_print = 9, 
+		RULE_read = 10, RULE_type = 11, RULE_expr = 12;
 	private static String[] makeRuleNames() {
 		return new String[] {
 			"program", "block", "stat", "func", "blockif", "blockwhile", "cond", 
-			"decl", "assign", "type", "print", "read", "expr"
+			"decl", "assign", "print", "read", "type", "expr"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -46,7 +46,7 @@ public class JacobParser extends Parser {
 			null, "READ", "PRINT", "INTTYPE", "REALTYPE", "LONGREAL", "LONGINT", 
 			"IF", "WHILE", "RETURN", "REAL", "INT", "ID", "SEMIC", "ASSIGN", "LBRAC", 
 			"RBRAC", "LCLASP", "RCLASP", "ADD", "SUB", "MULT", "DIV", "EQ", "NEQ", 
-			"GT", "LT", "GTE", "LTE", "WS"
+			"GT", "LT", "GTE", "LTE", "LINECOMMENT", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -907,61 +907,6 @@ public class JacobParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
-	public static class TypeContext extends ParserRuleContext {
-		public TerminalNode INTTYPE() { return getToken(JacobParser.INTTYPE, 0); }
-		public TerminalNode REALTYPE() { return getToken(JacobParser.REALTYPE, 0); }
-		public TerminalNode LONGINT() { return getToken(JacobParser.LONGINT, 0); }
-		public TerminalNode LONGREAL() { return getToken(JacobParser.LONGREAL, 0); }
-		public TypeContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_type; }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof JacobListener ) ((JacobListener)listener).enterType(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof JacobListener ) ((JacobListener)listener).exitType(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof JacobVisitor ) return ((JacobVisitor<? extends T>)visitor).visitType(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-
-	public final TypeContext type() throws RecognitionException {
-		TypeContext _localctx = new TypeContext(_ctx, getState());
-		enterRule(_localctx, 18, RULE_type);
-		int _la;
-		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(102);
-			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 120L) != 0)) ) {
-			_errHandler.recoverInline(this);
-			}
-			else {
-				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-				_errHandler.reportMatch(this);
-				consume();
-			}
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			_errHandler.reportError(this, re);
-			_errHandler.recover(this, re);
-		}
-		finally {
-			exitRule();
-		}
-		return _localctx;
-	}
-
-	@SuppressWarnings("CheckReturnValue")
 	public static class PrintContext extends ParserRuleContext {
 		public TerminalNode PRINT() { return getToken(JacobParser.PRINT, 0); }
 		public TerminalNode LBRAC() { return getToken(JacobParser.LBRAC, 0); }
@@ -990,17 +935,17 @@ public class JacobParser extends Parser {
 
 	public final PrintContext print() throws RecognitionException {
 		PrintContext _localctx = new PrintContext(_ctx, getState());
-		enterRule(_localctx, 20, RULE_print);
+		enterRule(_localctx, 18, RULE_print);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(104);
+			setState(102);
 			match(PRINT);
-			setState(105);
+			setState(103);
 			match(LBRAC);
-			setState(106);
+			setState(104);
 			expr(0);
-			setState(107);
+			setState(105);
 			match(RBRAC);
 			}
 		}
@@ -1022,6 +967,9 @@ public class JacobParser extends Parser {
 		public TerminalNode READ() { return getToken(JacobParser.READ, 0); }
 		public TerminalNode LBRAC() { return getToken(JacobParser.LBRAC, 0); }
 		public TerminalNode RBRAC() { return getToken(JacobParser.RBRAC, 0); }
+		public TypeContext type() {
+			return getRuleContext(TypeContext.class,0);
+		}
 		public ReadContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -1043,20 +991,86 @@ public class JacobParser extends Parser {
 
 	public final ReadContext read() throws RecognitionException {
 		ReadContext _localctx = new ReadContext(_ctx, getState());
-		enterRule(_localctx, 22, RULE_read);
+		enterRule(_localctx, 20, RULE_read);
+		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(109);
-			match(ID);
+			setState(108);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 120L) != 0)) {
+				{
+				setState(107);
+				type();
+				}
+			}
+
 			setState(110);
-			match(ASSIGN);
+			match(ID);
 			setState(111);
-			match(READ);
+			match(ASSIGN);
 			setState(112);
-			match(LBRAC);
+			match(READ);
 			setState(113);
+			match(LBRAC);
+			setState(114);
 			match(RBRAC);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class TypeContext extends ParserRuleContext {
+		public TerminalNode INTTYPE() { return getToken(JacobParser.INTTYPE, 0); }
+		public TerminalNode REALTYPE() { return getToken(JacobParser.REALTYPE, 0); }
+		public TerminalNode LONGINT() { return getToken(JacobParser.LONGINT, 0); }
+		public TerminalNode LONGREAL() { return getToken(JacobParser.LONGREAL, 0); }
+		public TypeContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_type; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof JacobListener ) ((JacobListener)listener).enterType(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof JacobListener ) ((JacobListener)listener).exitType(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof JacobVisitor ) return ((JacobVisitor<? extends T>)visitor).visitType(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final TypeContext type() throws RecognitionException {
+		TypeContext _localctx = new TypeContext(_ctx, getState());
+		enterRule(_localctx, 22, RULE_type);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(116);
+			_la = _input.LA(1);
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 120L) != 0)) ) {
+			_errHandler.recoverInline(this);
+			}
+			else {
+				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+				_errHandler.reportMatch(this);
+				consume();
+			}
 			}
 		}
 		catch (RecognitionException re) {
@@ -1250,20 +1264,20 @@ public class JacobParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(128);
+			setState(131);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,5,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,6,_ctx) ) {
 			case 1:
 				{
 				_localctx = new ParensContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 
-				setState(116);
+				setState(119);
 				match(LBRAC);
-				setState(117);
+				setState(120);
 				expr(0);
-				setState(118);
+				setState(121);
 				match(RBRAC);
 				}
 				break;
@@ -1272,13 +1286,13 @@ public class JacobParser extends Parser {
 				_localctx = new CallFuncContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(120);
-				match(ID);
-				setState(121);
-				match(LBRAC);
-				setState(122);
-				expr(0);
 				setState(123);
+				match(ID);
+				setState(124);
+				match(LBRAC);
+				setState(125);
+				expr(0);
+				setState(126);
 				match(RBRAC);
 				}
 				break;
@@ -1287,7 +1301,7 @@ public class JacobParser extends Parser {
 				_localctx = new RealContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(125);
+				setState(128);
 				match(REAL);
 				}
 				break;
@@ -1296,7 +1310,7 @@ public class JacobParser extends Parser {
 				_localctx = new IntContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(126);
+				setState(129);
 				match(INT);
 				}
 				break;
@@ -1305,30 +1319,30 @@ public class JacobParser extends Parser {
 				_localctx = new IdContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(127);
+				setState(130);
 				match(ID);
 				}
 				break;
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(138);
+			setState(141);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,7,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,8,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					setState(136);
+					setState(139);
 					_errHandler.sync(this);
-					switch ( getInterpreter().adaptivePredict(_input,6,_ctx) ) {
+					switch ( getInterpreter().adaptivePredict(_input,7,_ctx) ) {
 					case 1:
 						{
 						_localctx = new MultDivContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(130);
+						setState(133);
 						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
-						setState(131);
+						setState(134);
 						((MultDivContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !(_la==MULT || _la==DIV) ) {
@@ -1339,7 +1353,7 @@ public class JacobParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(132);
+						setState(135);
 						expr(7);
 						}
 						break;
@@ -1347,9 +1361,9 @@ public class JacobParser extends Parser {
 						{
 						_localctx = new AddSubContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(133);
+						setState(136);
 						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
-						setState(134);
+						setState(137);
 						((AddSubContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !(_la==ADD || _la==SUB) ) {
@@ -1360,16 +1374,16 @@ public class JacobParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(135);
+						setState(138);
 						expr(6);
 						}
 						break;
 					}
 					} 
 				}
-				setState(140);
+				setState(143);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,7,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,8,_ctx);
 			}
 			}
 		}
@@ -1402,7 +1416,7 @@ public class JacobParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001\u001d\u008e\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001"+
+		"\u0004\u0001\u001e\u0091\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001"+
 		"\u0002\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004"+
 		"\u0002\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007"+
 		"\u0002\b\u0007\b\u0002\t\u0007\t\u0002\n\u0007\n\u0002\u000b\u0007\u000b"+
@@ -1418,20 +1432,20 @@ public class JacobParser extends Parser {
 		"\u0004\u0001\u0004\u0001\u0005\u0001\u0005\u0001\u0005\u0001\u0005\u0001"+
 		"\u0005\u0001\u0005\u0001\u0005\u0001\u0005\u0001\u0006\u0001\u0006\u0001"+
 		"\u0006\u0001\u0006\u0001\u0007\u0001\u0007\u0001\u0007\u0001\b\u0003\b"+
-		"a\b\b\u0001\b\u0001\b\u0001\b\u0001\b\u0001\t\u0001\t\u0001\n\u0001\n"+
-		"\u0001\n\u0001\n\u0001\n\u0001\u000b\u0001\u000b\u0001\u000b\u0001\u000b"+
-		"\u0001\u000b\u0001\u000b\u0001\f\u0001\f\u0001\f\u0001\f\u0001\f\u0001"+
-		"\f\u0001\f\u0001\f\u0001\f\u0001\f\u0001\f\u0001\f\u0001\f\u0003\f\u0081"+
-		"\b\f\u0001\f\u0001\f\u0001\f\u0001\f\u0001\f\u0001\f\u0005\f\u0089\b\f"+
-		"\n\f\f\f\u008c\t\f\u0001\f\u0000\u0001\u0018\r\u0000\u0002\u0004\u0006"+
+		"a\b\b\u0001\b\u0001\b\u0001\b\u0001\b\u0001\t\u0001\t\u0001\t\u0001\t"+
+		"\u0001\t\u0001\n\u0003\nm\b\n\u0001\n\u0001\n\u0001\n\u0001\n\u0001\n"+
+		"\u0001\n\u0001\u000b\u0001\u000b\u0001\f\u0001\f\u0001\f\u0001\f\u0001"+
+		"\f\u0001\f\u0001\f\u0001\f\u0001\f\u0001\f\u0001\f\u0001\f\u0001\f\u0003"+
+		"\f\u0084\b\f\u0001\f\u0001\f\u0001\f\u0001\f\u0001\f\u0001\f\u0005\f\u008c"+
+		"\b\f\n\f\f\f\u008f\t\f\u0001\f\u0000\u0001\u0018\r\u0000\u0002\u0004\u0006"+
 		"\b\n\f\u000e\u0010\u0012\u0014\u0016\u0018\u0000\u0004\u0001\u0000\u0017"+
 		"\u001c\u0001\u0000\u0003\u0006\u0001\u0000\u0015\u0016\u0001\u0000\u0013"+
-		"\u0014\u0091\u0000\u001c\u0001\u0000\u0000\u0000\u0002#\u0001\u0000\u0000"+
+		"\u0014\u0095\u0000\u001c\u0001\u0000\u0000\u0000\u0002#\u0001\u0000\u0000"+
 		"\u0000\u0004<\u0001\u0000\u0000\u0000\u0006>\u0001\u0000\u0000\u0000\b"+
 		"H\u0001\u0000\u0000\u0000\nP\u0001\u0000\u0000\u0000\fX\u0001\u0000\u0000"+
 		"\u0000\u000e\\\u0001\u0000\u0000\u0000\u0010`\u0001\u0000\u0000\u0000"+
-		"\u0012f\u0001\u0000\u0000\u0000\u0014h\u0001\u0000\u0000\u0000\u0016m"+
-		"\u0001\u0000\u0000\u0000\u0018\u0080\u0001\u0000\u0000\u0000\u001a\u001d"+
+		"\u0012f\u0001\u0000\u0000\u0000\u0014l\u0001\u0000\u0000\u0000\u0016t"+
+		"\u0001\u0000\u0000\u0000\u0018\u0083\u0001\u0000\u0000\u0000\u001a\u001d"+
 		"\u0003\u0006\u0003\u0000\u001b\u001d\u0003\u0004\u0002\u0000\u001c\u001a"+
 		"\u0001\u0000\u0000\u0000\u001c\u001b\u0001\u0000\u0000\u0000\u001d\u001e"+
 		"\u0001\u0000\u0000\u0000\u001e\u001c\u0001\u0000\u0000\u0000\u001e\u001f"+
@@ -1441,16 +1455,16 @@ public class JacobParser extends Parser {
 		"\u0000%&\u0001\u0000\u0000\u0000&\u0003\u0001\u0000\u0000\u0000\'(\u0003"+
 		"\u000e\u0007\u0000()\u0005\r\u0000\u0000)=\u0001\u0000\u0000\u0000*+\u0003"+
 		"\u0010\b\u0000+,\u0005\r\u0000\u0000,=\u0001\u0000\u0000\u0000-.\u0003"+
-		"\u0014\n\u0000./\u0005\r\u0000\u0000/=\u0001\u0000\u0000\u000001\u0003"+
-		"\u0016\u000b\u000012\u0005\r\u0000\u00002=\u0001\u0000\u0000\u000034\u0003"+
+		"\u0012\t\u0000./\u0005\r\u0000\u0000/=\u0001\u0000\u0000\u000001\u0003"+
+		"\u0014\n\u000012\u0005\r\u0000\u00002=\u0001\u0000\u0000\u000034\u0003"+
 		"\u0018\f\u000045\u0005\r\u0000\u00005=\u0001\u0000\u0000\u00006=\u0003"+
 		"\b\u0004\u00007=\u0003\n\u0005\u000089\u0005\t\u0000\u00009:\u0003\u0018"+
 		"\f\u0000:;\u0005\r\u0000\u0000;=\u0001\u0000\u0000\u0000<\'\u0001\u0000"+
 		"\u0000\u0000<*\u0001\u0000\u0000\u0000<-\u0001\u0000\u0000\u0000<0\u0001"+
 		"\u0000\u0000\u0000<3\u0001\u0000\u0000\u0000<6\u0001\u0000\u0000\u0000"+
 		"<7\u0001\u0000\u0000\u0000<8\u0001\u0000\u0000\u0000=\u0005\u0001\u0000"+
-		"\u0000\u0000>?\u0003\u0012\t\u0000?@\u0005\f\u0000\u0000@A\u0005\u000f"+
-		"\u0000\u0000AB\u0003\u0012\t\u0000BC\u0005\f\u0000\u0000CD\u0005\u0010"+
+		"\u0000\u0000>?\u0003\u0016\u000b\u0000?@\u0005\f\u0000\u0000@A\u0005\u000f"+
+		"\u0000\u0000AB\u0003\u0016\u000b\u0000BC\u0005\f\u0000\u0000CD\u0005\u0010"+
 		"\u0000\u0000DE\u0005\u0011\u0000\u0000EF\u0003\u0002\u0001\u0000FG\u0005"+
 		"\u0012\u0000\u0000G\u0007\u0001\u0000\u0000\u0000HI\u0005\u0007\u0000"+
 		"\u0000IJ\u0005\u000f\u0000\u0000JK\u0003\f\u0006\u0000KL\u0005\u0010\u0000"+
@@ -1459,30 +1473,32 @@ public class JacobParser extends Parser {
 		"\u000f\u0000\u0000RS\u0003\f\u0006\u0000ST\u0005\u0010\u0000\u0000TU\u0005"+
 		"\u0011\u0000\u0000UV\u0003\u0002\u0001\u0000VW\u0005\u0012\u0000\u0000"+
 		"W\u000b\u0001\u0000\u0000\u0000XY\u0003\u0018\f\u0000YZ\u0007\u0000\u0000"+
-		"\u0000Z[\u0003\u0018\f\u0000[\r\u0001\u0000\u0000\u0000\\]\u0003\u0012"+
-		"\t\u0000]^\u0005\f\u0000\u0000^\u000f\u0001\u0000\u0000\u0000_a\u0003"+
-		"\u0012\t\u0000`_\u0001\u0000\u0000\u0000`a\u0001\u0000\u0000\u0000ab\u0001"+
-		"\u0000\u0000\u0000bc\u0005\f\u0000\u0000cd\u0005\u000e\u0000\u0000de\u0003"+
-		"\u0018\f\u0000e\u0011\u0001\u0000\u0000\u0000fg\u0007\u0001\u0000\u0000"+
-		"g\u0013\u0001\u0000\u0000\u0000hi\u0005\u0002\u0000\u0000ij\u0005\u000f"+
-		"\u0000\u0000jk\u0003\u0018\f\u0000kl\u0005\u0010\u0000\u0000l\u0015\u0001"+
-		"\u0000\u0000\u0000mn\u0005\f\u0000\u0000no\u0005\u000e\u0000\u0000op\u0005"+
-		"\u0001\u0000\u0000pq\u0005\u000f\u0000\u0000qr\u0005\u0010\u0000\u0000"+
-		"r\u0017\u0001\u0000\u0000\u0000st\u0006\f\uffff\uffff\u0000tu\u0005\u000f"+
-		"\u0000\u0000uv\u0003\u0018\f\u0000vw\u0005\u0010\u0000\u0000w\u0081\u0001"+
-		"\u0000\u0000\u0000xy\u0005\f\u0000\u0000yz\u0005\u000f\u0000\u0000z{\u0003"+
-		"\u0018\f\u0000{|\u0005\u0010\u0000\u0000|\u0081\u0001\u0000\u0000\u0000"+
-		"}\u0081\u0005\n\u0000\u0000~\u0081\u0005\u000b\u0000\u0000\u007f\u0081"+
-		"\u0005\f\u0000\u0000\u0080s\u0001\u0000\u0000\u0000\u0080x\u0001\u0000"+
-		"\u0000\u0000\u0080}\u0001\u0000\u0000\u0000\u0080~\u0001\u0000\u0000\u0000"+
-		"\u0080\u007f\u0001\u0000\u0000\u0000\u0081\u008a\u0001\u0000\u0000\u0000"+
-		"\u0082\u0083\n\u0006\u0000\u0000\u0083\u0084\u0007\u0002\u0000\u0000\u0084"+
-		"\u0089\u0003\u0018\f\u0007\u0085\u0086\n\u0005\u0000\u0000\u0086\u0087"+
-		"\u0007\u0003\u0000\u0000\u0087\u0089\u0003\u0018\f\u0006\u0088\u0082\u0001"+
-		"\u0000\u0000\u0000\u0088\u0085\u0001\u0000\u0000\u0000\u0089\u008c\u0001"+
-		"\u0000\u0000\u0000\u008a\u0088\u0001\u0000\u0000\u0000\u008a\u008b\u0001"+
-		"\u0000\u0000\u0000\u008b\u0019\u0001\u0000\u0000\u0000\u008c\u008a\u0001"+
-		"\u0000\u0000\u0000\b\u001c\u001e%<`\u0080\u0088\u008a";
+		"\u0000Z[\u0003\u0018\f\u0000[\r\u0001\u0000\u0000\u0000\\]\u0003\u0016"+
+		"\u000b\u0000]^\u0005\f\u0000\u0000^\u000f\u0001\u0000\u0000\u0000_a\u0003"+
+		"\u0016\u000b\u0000`_\u0001\u0000\u0000\u0000`a\u0001\u0000\u0000\u0000"+
+		"ab\u0001\u0000\u0000\u0000bc\u0005\f\u0000\u0000cd\u0005\u000e\u0000\u0000"+
+		"de\u0003\u0018\f\u0000e\u0011\u0001\u0000\u0000\u0000fg\u0005\u0002\u0000"+
+		"\u0000gh\u0005\u000f\u0000\u0000hi\u0003\u0018\f\u0000ij\u0005\u0010\u0000"+
+		"\u0000j\u0013\u0001\u0000\u0000\u0000km\u0003\u0016\u000b\u0000lk\u0001"+
+		"\u0000\u0000\u0000lm\u0001\u0000\u0000\u0000mn\u0001\u0000\u0000\u0000"+
+		"no\u0005\f\u0000\u0000op\u0005\u000e\u0000\u0000pq\u0005\u0001\u0000\u0000"+
+		"qr\u0005\u000f\u0000\u0000rs\u0005\u0010\u0000\u0000s\u0015\u0001\u0000"+
+		"\u0000\u0000tu\u0007\u0001\u0000\u0000u\u0017\u0001\u0000\u0000\u0000"+
+		"vw\u0006\f\uffff\uffff\u0000wx\u0005\u000f\u0000\u0000xy\u0003\u0018\f"+
+		"\u0000yz\u0005\u0010\u0000\u0000z\u0084\u0001\u0000\u0000\u0000{|\u0005"+
+		"\f\u0000\u0000|}\u0005\u000f\u0000\u0000}~\u0003\u0018\f\u0000~\u007f"+
+		"\u0005\u0010\u0000\u0000\u007f\u0084\u0001\u0000\u0000\u0000\u0080\u0084"+
+		"\u0005\n\u0000\u0000\u0081\u0084\u0005\u000b\u0000\u0000\u0082\u0084\u0005"+
+		"\f\u0000\u0000\u0083v\u0001\u0000\u0000\u0000\u0083{\u0001\u0000\u0000"+
+		"\u0000\u0083\u0080\u0001\u0000\u0000\u0000\u0083\u0081\u0001\u0000\u0000"+
+		"\u0000\u0083\u0082\u0001\u0000\u0000\u0000\u0084\u008d\u0001\u0000\u0000"+
+		"\u0000\u0085\u0086\n\u0006\u0000\u0000\u0086\u0087\u0007\u0002\u0000\u0000"+
+		"\u0087\u008c\u0003\u0018\f\u0007\u0088\u0089\n\u0005\u0000\u0000\u0089"+
+		"\u008a\u0007\u0003\u0000\u0000\u008a\u008c\u0003\u0018\f\u0006\u008b\u0085"+
+		"\u0001\u0000\u0000\u0000\u008b\u0088\u0001\u0000\u0000\u0000\u008c\u008f"+
+		"\u0001\u0000\u0000\u0000\u008d\u008b\u0001\u0000\u0000\u0000\u008d\u008e"+
+		"\u0001\u0000\u0000\u0000\u008e\u0019\u0001\u0000\u0000\u0000\u008f\u008d"+
+		"\u0001\u0000\u0000\u0000\t\u001c\u001e%<`l\u0083\u008b\u008d";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

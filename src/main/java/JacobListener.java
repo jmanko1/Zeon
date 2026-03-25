@@ -1,4 +1,4 @@
-// Generated from C:/Users/Kuba/IdeaProjects/Compiler/src/main/resources/Jacob.g4 by ANTLR 4.13.2
+// Generated from C:/Users/jakub/IdeaProjects/LLVMCompiler/src/main/resources/Jacob.g4 by ANTLR 4.13.2
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -183,16 +183,6 @@ public interface JacobListener extends ParseTreeListener {
 	 */
 	void exitAssign(JacobParser.AssignContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link JacobParser#type}.
-	 * @param ctx the parse tree
-	 */
-	void enterType(JacobParser.TypeContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link JacobParser#type}.
-	 * @param ctx the parse tree
-	 */
-	void exitType(JacobParser.TypeContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link JacobParser#print}.
 	 * @param ctx the parse tree
 	 */
@@ -212,6 +202,16 @@ public interface JacobListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitRead(JacobParser.ReadContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JacobParser#type}.
+	 * @param ctx the parse tree
+	 */
+	void enterType(JacobParser.TypeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JacobParser#type}.
+	 * @param ctx the parse tree
+	 */
+	void exitType(JacobParser.TypeContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code AddSub}
 	 * labeled alternative in {@link JacobParser#expr}.
