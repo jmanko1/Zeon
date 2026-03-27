@@ -1,55 +1,69 @@
-import java.util.HashSet;
-import java.util.Stack;
+import org.antlr.v4.runtime.ParserRuleContext;
 
-import static java.lang.System.exit;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.*;
 
 public class LLVMActions extends JacobBaseListener {
-    private HashSet<String> functionNames = new HashSet<>();
-    private HashSet<Variable> globalVariables = new HashSet<>();
-    private HashSet<Variable> localVariables = new HashSet<>();
+    private Map<String, Function> functions = new HashMap<>();
+    private Set<Variable> globalVariables = new HashSet<>();
+    private Stack<Set<Variable>> localVariables = new Stack<>();
     private Boolean global;
+    private Function currentFunction;
 
     private Stack<Type> typeStack = new Stack<>();
     private Stack<String> valueStack = new Stack<>();
 
+    private void error(ParserRuleContext ctx, String msg) {
+        int line = ctx.getStart().getLine();
+        System.err.println("Error at line " + line + ": " + msg);
+        System.exit(1);
+    }
+
     @Override
     public void enterProgram(JacobParser.ProgramContext ctx) {
         global = true;
+        currentFunction = null;
+    }
+
+    private boolean isDeclaredInTheScope(String id) {
+        if (global)
+            return globalVariables.stream().anyMatch(v -> v.getName().equals(id));
+        else
+            return localVariables.stream().anyMatch(s -> s.stream().anyMatch(v -> v.getName().equals(id)));
+    }
+
+    private void registerVariable(ParserRuleContext ctx, String id, Type type) {
+        if (isDeclaredInTheScope(id))
+            error(ctx, "Variable " + id + " is already declared in the scope.");
+
+        Variable newVar = new Variable(id, false, type);
+        if (global)
+            globalVariables.add(newVar);
+        else
+            localVariables.peek().add(newVar);
+
+        LLVMGenerator.declare(id, global, type);
     }
 
     @Override
     public void exitProgram(JacobParser.ProgramContext ctx) {
         LLVMGenerator.close_main();
-        System.out.println( LLVMGenerator.generate() );
+        String code = LLVMGenerator.generate();
+
+        try (PrintWriter out = new PrintWriter("out.ll")) {
+            out.print(code);
+            System.out.println("Successfully compiled into IR.");
+        } catch (IOException e) {
+            System.err.println("Error while saving the IR file: " + e.getMessage());
+        }
     }
 
     @Override
     public void exitDeclStat(JacobParser.DeclStatContext ctx) {
         String id = ctx.decl().ID().getText();
-        boolean exists = global ?
-                globalVariables.stream().anyMatch(v -> v.getName().equals(id)) :
-                localVariables.stream().anyMatch(v -> v.getName().equals(id));
-
-        if (exists) {
-            System.err.println("Error: " + id + " already declared.");
-            exit(1);
-        }
-
-        String typeText = ctx.decl().type().getText();
         Type type = mapAntlrTypeToEnum(ctx.decl().type().getText());
-        if (type == null) {
-            System.err.println("Unknown type " + typeText);
-            exit(1);
-        }
-
-        Variable newVar = new Variable(id, type);
-
-        if (global)
-            globalVariables.add(newVar);
-        else
-            localVariables.add(newVar);
-
-        LLVMGenerator.declare(id, global, type);
+        registerVariable(ctx, id, type);
     }
 
     @Override
@@ -59,44 +73,20 @@ public class LLVMActions extends JacobBaseListener {
         Type exprType = typeStack.pop();
 
         if (ctx.assign().type() != null) {
-            boolean exists = global ?
-                    globalVariables.stream().anyMatch(v -> v.getName().equals(id)) :
-                    localVariables.stream().anyMatch(v -> v.getName().equals(id));
-
-            if (exists) {
-                System.err.println("Error: " + id + " already declared.");
-                exit(1);
-            }
-
-            String declTypeText = ctx.assign().type().getText();
-            Type declType = mapAntlrTypeToEnum(declTypeText);
-            if (declType == null) {
-                System.err.println("Unknown type " + declTypeText);
-                exit(1);
-            }
-
-            Variable newVar = new Variable(id, declType);
-
-            if (global)
-                globalVariables.add(newVar);
-            else
-                localVariables.add(newVar);
-
-            LLVMGenerator.declare(id, global, declType);
+            Type declType = mapAntlrTypeToEnum(ctx.assign().type().getText());
+            registerVariable(ctx, id, declType);
         }
 
         Variable variable = findVariable(id);
-
         if (variable == null) {
-            System.err.println("Error: " + id + " never declared.");
-            exit(1);
+            error(ctx, "Unknown variable " + id + ".");
         }
 
         String finalValue = ensureType(value, exprType, variable.getType());
 
-        String prefix = (globalVariables.contains(variable) && !localVariables.contains(variable)) ? "@" : "%";
-        String llvmId = prefix + variable.getName();
-        LLVMGenerator.assign(llvmId, finalValue, variable.getType());
+        boolean isGlobal = globalVariables.contains(variable);
+        String prefix = isGlobal ? "@" : "%";
+        LLVMGenerator.assign(prefix + variable.getName(), finalValue, variable.getType());
     }
 
     @Override
@@ -104,10 +94,10 @@ public class LLVMActions extends JacobBaseListener {
         String value = valueStack.pop();
         Type type = typeStack.pop();
 
-        if (type == Type.REAL) {
-            LLVMGenerator.fpext(value, Type.REAL, Type.LONG_REAL);
+        if (type == Type.FLOAT) {
+            LLVMGenerator.fpext(value, Type.FLOAT, Type.DOUBLE);
             value = "%" + (LLVMGenerator.tmp - 1);
-            type = Type.LONG_REAL;
+            type = Type.DOUBLE;
         }
 
         LLVMGenerator.printf(value, type);
@@ -116,45 +106,31 @@ public class LLVMActions extends JacobBaseListener {
     @Override
     public void exitRead(JacobParser.ReadContext ctx) {
         String id = ctx.ID().getText();
-
         if (ctx.type() != null) {
-            boolean exists = global ?
-                    globalVariables.stream().anyMatch(v -> v.getName().equals(id)) :
-                    localVariables.stream().anyMatch(v -> v.getName().equals(id));
-
-            if (exists) {
-                System.err.println("Error: " + id + " already declared.");
-                exit(1);
-            }
-
-            String declTypeText = ctx.type().getText();
-            Type declType = mapAntlrTypeToEnum(ctx.type().getText());
-            if (declType == null) {
-                System.err.println("Unknown type " + declTypeText);
-                exit(1);
-            }
-
-            Variable newVar = new Variable(id, declType);
-
-            if (global)
-                globalVariables.add(newVar);
-            else
-                localVariables.add(newVar);
-
-            LLVMGenerator.declare(id, global, declType);
+            registerVariable(ctx, id, mapAntlrTypeToEnum(ctx.type().getText()));
         }
 
-        Variable var = findVariable(id);
+        Variable variable = findVariable(id);
+        if (variable == null)
+            error(ctx, "Unknown variable " + id + ".");
 
-        if (var == null) {
-            System.err.println("Error: " + id + " never declared.");
-            exit(1);
+        boolean isGlobal = globalVariables.contains(variable);
+        LLVMGenerator.scanf((isGlobal ? "@" : "%") + id, variable.getType());
+    }
+
+    @Override
+    public void exitUnaryMinus(JacobParser.UnaryMinusContext ctx) {
+        Type type = typeStack.pop();
+        String value = valueStack.pop();
+
+        if (type == Type.FLOAT || type == Type.DOUBLE) {
+            LLVMGenerator.fmul(value, "-1.0", type);
+        } else {
+            LLVMGenerator.mul(value, "-1", type);
         }
 
-        String prefix = (globalVariables.contains(var) && !localVariables.contains(var)) ? "@" : "%";
-        String llvmId = prefix + var.getName();
-
-        LLVMGenerator.scanf(llvmId, var.getType());
+        valueStack.push("%" + (LLVMGenerator.tmp - 1));
+        typeStack.push(type);
     }
 
     @Override
@@ -166,32 +142,36 @@ public class LLVMActions extends JacobBaseListener {
         typeStack.push(Type.INT);
     }
 
-    @Override
-    public void exitReal(JacobParser.RealContext ctx) {
-        String value = ctx.REAL().getText();
-        LLVMGenerator.fadd("0.0", value, Type.REAL);
 
-        valueStack.push("%" + (LLVMGenerator.tmp - 1));
-        typeStack.push(Type.REAL);
+    @Override
+    public void exitFloat(JacobParser.FloatContext ctx) {
+        String rawValue = ctx.REAL().getText();
+        LLVMGenerator.fptrunc(rawValue, Type.DOUBLE, Type.FLOAT);
+
+        valueStack.push("%" + LLVMGenerator.tmp);
+        typeStack.push(Type.FLOAT);
+
+        LLVMGenerator.tmp++;
     }
 
     @Override
     public void exitId(JacobParser.IdContext ctx) {
         String id = ctx.ID().getText();
         Variable variable = findVariable(id);
+        if (variable == null)
+            error(ctx, "Unknown variable " + id + ".");
 
-        if (variable == null) {
-            System.err.println("Error: " + id + " never declared.");
-            exit(1);
+        if (variable.getIsArgument()) {
+            valueStack.push("%" + variable.getName());
+            typeStack.push(variable.getType());
+        } else {
+            boolean isGlobal = globalVariables.contains(variable);
+            String prefix = isGlobal ? "@" : "%";
+
+            LLVMGenerator.load(prefix + variable.getName(), variable.getType());
+            valueStack.push("%" + (LLVMGenerator.tmp - 1));
+            typeStack.push(variable.getType());
         }
-
-        boolean isGlobal = globalVariables.contains(variable) && !localVariables.contains(variable);
-        String llvmId = (isGlobal ? "@" : "%") + id;
-
-        LLVMGenerator.load(llvmId, variable.getType());
-
-        valueStack.push("%" + (LLVMGenerator.tmp - 1));
-        typeStack.push(variable.getType());
     }
 
     @Override
@@ -208,7 +188,7 @@ public class LLVMActions extends JacobBaseListener {
         valueLeft = ensureType(valueLeft, typeLeft, targetType);
         valueRight = ensureType(valueRight, typeRight, targetType);
 
-        if (targetType == Type.REAL || targetType == Type.LONG_REAL) {
+        if (targetType == Type.FLOAT || targetType == Type.DOUBLE) {
             if (op.equals("+"))
                 LLVMGenerator.fadd(valueLeft, valueRight, targetType);
             else
@@ -238,7 +218,7 @@ public class LLVMActions extends JacobBaseListener {
         valueLeft = ensureType(valueLeft, typeLeft, targetType);
         valueRight = ensureType(valueRight, typeRight, targetType);
 
-        if (targetType == Type.REAL || targetType == Type.LONG_REAL) {
+        if (targetType == Type.FLOAT || targetType == Type.DOUBLE) {
             if (op.equals("*"))
                 LLVMGenerator.fmul(valueLeft, valueRight, targetType);
             else
@@ -256,37 +236,215 @@ public class LLVMActions extends JacobBaseListener {
 
     @Override
     public void enterBlockif(JacobParser.BlockifContext ctx) {
-        LLVMGenerator.startIf();
+        global = false;
+        localVariables.push(new HashSet<>());
+    }
+
+    @Override
+    public void exitCond(JacobParser.CondContext ctx) {
+        String op = ctx.op.getText();
+
+        Type typeRight = typeStack.pop();
+        Type typeLeft = typeStack.pop();
+        String valueRight = valueStack.pop();
+        String valueLeft = valueStack.pop();
+
+        Type targetType = getStrongerType(typeLeft, typeRight);
+        valueLeft = ensureType(valueLeft, typeLeft, targetType);
+        valueRight = ensureType(valueRight, typeRight, targetType);
+
+        if (targetType == Type.FLOAT || targetType == Type.DOUBLE)
+            LLVMGenerator.fcmp(valueLeft, op, valueRight, targetType);
+        else
+            LLVMGenerator.icmp(valueLeft, op, valueRight, targetType);
+
+        String condResult = "%" + (LLVMGenerator.tmp - 1);
+        valueStack.push(condResult);
+        typeStack.push(Type.INT);
+
+        if (ctx.getParent() instanceof JacobParser.BlockifContext) {
+            LLVMGenerator.startIf(condResult);
+        } else if (ctx.getParent() instanceof JacobParser.BlockwhileContext) {
+            LLVMGenerator.whileCond(condResult);
+        }
     }
 
     @Override
     public void exitBlockif(JacobParser.BlockifContext ctx) {
+        localVariables.pop();
+
+        if (localVariables.size() <= 1 && currentFunction == null) {
+            global = true;
+        }
+
         LLVMGenerator.endIf();
+    }
+
+    @Override
+    public void enterBlockwhile(JacobParser.BlockwhileContext ctx) {
+        global = false;
+        localVariables.push(new HashSet<>());
+        LLVMGenerator.startWhile();
+    }
+
+    @Override
+    public void exitBlockwhile(JacobParser.BlockwhileContext ctx) {
+        localVariables.pop();
+
+        if (localVariables.size() <= 1 && currentFunction == null)
+            global = true;
+
+        LLVMGenerator.endWhile();
+    }
+
+    @Override
+    public void enterFunc(JacobParser.FuncContext ctx) {
+        global = false;
+
+        String id = ctx.ID().getText();
+        if (functions.containsKey(id))
+            error(ctx, "Function " + id + " is already defined.");
+
+        String returnType = mapAntlrTypeToLlvmType(ctx.functype().getText());
+        StringBuilder funcHeaderBuilder = new StringBuilder("define " + returnType + " @" + id + "(");
+        localVariables.push(new HashSet<>());
+        List<Type> argumentTypes = new ArrayList<>();
+
+        if (ctx.params() != null) {
+            for (int i = 0; i < ctx.params().param().size(); i++) {
+                JacobParser.ParamContext pctx = ctx.params().param(i);
+                String paramId = pctx.ID().getText();
+                String paramType = mapAntlrTypeToLlvmType(pctx.type().getText());
+                funcHeaderBuilder.append(paramType).append(" %").append(paramId);
+
+                if (i < ctx.params().param().size() - 1)
+                    funcHeaderBuilder.append(", ");
+
+                Type paramTypeEnum = mapAntlrTypeToEnum(pctx.type().getText());
+                argumentTypes.add(paramTypeEnum);
+                localVariables.peek().add(new Variable(paramId, true, paramTypeEnum));
+            }
+        }
+
+        Function function = new Function(false, argumentTypes, mapAntlrTypeToEnum(ctx.functype().getText()));
+        functions.put(id, function);
+        currentFunction = function;
+        funcHeaderBuilder.append(") nounwind {\n");
+        LLVMGenerator.startFunc(funcHeaderBuilder.toString());
+    }
+
+    @Override
+    public void exitFunc(JacobParser.FuncContext ctx) {
+        global = true;
+        currentFunction = null;
+
+        String id = ctx.ID().getText();
+        Function function = functions.get(id);
+        LLVMGenerator.endFunc(function.getReturnType());
+        localVariables.pop();
+    }
+
+    @Override
+    public void exitCallFunc(JacobParser.CallFuncContext ctx) {
+        String id = ctx.ID().getText();
+        Function function = functions.get(id);
+        if (function == null)
+            error(ctx, "Undefined function " + id);
+
+        int providedArgsCount = ctx.args() != null ? ctx.args().expr().size() : 0;
+        List<Type> expectedArgTypes = function.getArgumentTypes();
+        int expectedArgsCount = expectedArgTypes.size();
+        if (providedArgsCount != expectedArgsCount)
+            error(ctx, "Function " + id + " expects " + expectedArgsCount +
+                    " arguments, but " + providedArgsCount + " were provided.");
+
+        Type returnType = function.getReturnType();
+        Stack<String> args = new Stack<>();
+        for (int i = expectedArgsCount - 1; i >= 0; i--) {
+            Type expectedType = expectedArgTypes.get(i);
+            Type providedType = typeStack.pop();
+            String providedValue = valueStack.pop();
+
+            String convertedValue = ensureType(providedValue, providedType, expectedType);
+            args.push(convertedValue);
+        }
+
+        LLVMGenerator.call(id, args, expectedArgTypes, returnType);
+
+        if (returnType != Type.VOID) {
+            valueStack.push("%" + (LLVMGenerator.tmp - 1));
+            typeStack.push(returnType);
+        }
+    }
+
+    @Override
+    public void exitReturnStat(JacobParser.ReturnStatContext ctx) {
+        if (currentFunction == null)
+            error(ctx, "Return statement outside of a function.");
+
+        if (currentFunction.getReturnType() == Type.VOID)
+            error(ctx, "Cannot return a value in a void function.");
+
+        Type exprType = typeStack.pop();
+        String exprValue = valueStack.pop();
+        String convertedValue = ensureType(exprValue, exprType, currentFunction.getReturnType());
+        LLVMGenerator.ret(convertedValue, currentFunction.getReturnType());
+        currentFunction.setHasReturn(true);
+    }
+
+    private String mapAntlrTypeToLlvmType(String antlrType) {
+        return switch (antlrType) {
+            case "long int" -> "i64";
+            case "float" -> "float";
+            case "double" -> "double";
+            case "int" -> "i32";
+            default -> antlrType;
+        };
     }
 
     private String ensureType(String value, Type current, Type target) {
         if (current == target) return value;
 
+        // int -> long int
         if (current == Type.INT && target == Type.LONG_INT) {
             LLVMGenerator.sext(value, current, target);
-        } else if (current == Type.REAL && target == Type.LONG_REAL) {
+        }
+        // long int -> int
+        else if (current == Type.LONG_INT && target == Type.INT) {
+            LLVMGenerator.trunc(value, current, target);
+        }
+
+        // float -> double
+        else if (current == Type.FLOAT && target == Type.DOUBLE) {
             LLVMGenerator.fpext(value, current, target);
-        } else if ((current == Type.INT || current == Type.LONG_INT) &&
-                (target == Type.REAL || target == Type.LONG_REAL)) {
+        }
+
+        // double -> float
+        else if (current == Type.DOUBLE && target == Type.FLOAT) {
+            LLVMGenerator.fptrunc(value, current, target);
+        }
+
+        // int/long int -> float/double
+        else if ((current == Type.INT || current == Type.LONG_INT) &&
+                (target == Type.FLOAT || target == Type.DOUBLE)) {
             LLVMGenerator.sitofp(value, current, target);
-        } else if ((current == Type.REAL || current == Type.LONG_REAL) &&
+        }
+        // float/double -> int/long int
+        else if ((current == Type.FLOAT || current == Type.DOUBLE) &&
                 (target == Type.INT || target == Type.LONG_INT)) {
             LLVMGenerator.fptosi(value, current, target);
         }
+        else
+            return value;
 
         return "%" + (LLVMGenerator.tmp - 1);
     }
 
     private Type getStrongerType(Type type1, Type type2) {
-        if (type1 == Type.LONG_REAL || type2 == Type.LONG_REAL)
-            return Type.LONG_REAL;
-        else if (type1 == Type.REAL || type2 == Type.REAL)
-            return Type.REAL;
+        if (type1 == Type.DOUBLE || type2 == Type.DOUBLE)
+            return Type.DOUBLE;
+        else if (type1 == Type.FLOAT || type2 == Type.FLOAT)
+            return Type.FLOAT;
         else if (type1 == Type.LONG_INT || type2 == Type.LONG_INT)
             return Type.LONG_INT;
         else
@@ -294,22 +452,26 @@ public class LLVMActions extends JacobBaseListener {
     }
 
     private Variable findVariable(String id) {
-        return localVariables.stream()
+        for (int i = localVariables.size() - 1; i >= 0; i--) {
+            for (Variable v : localVariables.get(i)) {
+                if (v.getName().equals(id))
+                    return v;
+            }
+        }
+
+        return globalVariables.stream()
                 .filter(v -> v.getName().equals(id))
                 .findFirst()
-                .orElse(globalVariables.stream()
-                        .filter(v -> v.getName().equals(id))
-                        .findFirst()
-                        .orElse(null)
-                );
+                .orElse(null);
     }
 
     private Type mapAntlrTypeToEnum(String text) {
         return switch (text) {
-            case "real" -> Type.REAL;
-            case "lint" -> Type.LONG_INT;
-            case "lreal" -> Type.LONG_REAL;
+            case "float" -> Type.FLOAT;
+            case "long int" -> Type.LONG_INT;
+            case "double" -> Type.DOUBLE;
             case "int" -> Type.INT;
+            case "void" -> Type.VOID;
             default -> null;
         };
     }

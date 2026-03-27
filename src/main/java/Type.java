@@ -1,6 +1,7 @@
 public enum Type {
     INT,
-    REAL,
+    FLOAT,
     LONG_INT,
-    LONG_REAL
+    DOUBLE,
+    VOID
 }

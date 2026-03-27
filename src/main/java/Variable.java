@@ -1,9 +1,11 @@
 public class Variable {
     private String name;
     private Type type;
+    private Boolean isArgument;
 
-    public Variable(String name, Type type) {
+    public Variable(String name, Boolean isArgument, Type type) {
         this.name = name;
+        this.isArgument = isArgument;
         this.type = type;
     }
 
@@ -11,8 +13,8 @@ public class Variable {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public Boolean getIsArgument() {
+        return isArgument;
     }
 
     public Type getType() {

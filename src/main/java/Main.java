@@ -14,6 +14,10 @@ public class Main {
 
         ParseTree tree = parser.program();
 
+        if (parser.getNumberOfSyntaxErrors() > 0) {
+            System.exit(1);
+        }
+
         ParseTreeWalker walker = new ParseTreeWalker();
         walker.walk(new LLVMActions(), tree);
     }

@@ -1,4 +1,4 @@
-// Generated from C:/Users/jakub/IdeaProjects/LLVMCompiler/src/main/resources/Jacob.g4 by ANTLR 4.13.2
+// Generated from C:/Users/Kuba/IdeaProjects/Compiler/src/main/resources/Jacob.g4 by ANTLR 4.13.2
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -133,6 +133,36 @@ public interface JacobListener extends ParseTreeListener {
 	 */
 	void exitFunc(JacobParser.FuncContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link JacobParser#params}.
+	 * @param ctx the parse tree
+	 */
+	void enterParams(JacobParser.ParamsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JacobParser#params}.
+	 * @param ctx the parse tree
+	 */
+	void exitParams(JacobParser.ParamsContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JacobParser#param}.
+	 * @param ctx the parse tree
+	 */
+	void enterParam(JacobParser.ParamContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JacobParser#param}.
+	 * @param ctx the parse tree
+	 */
+	void exitParam(JacobParser.ParamContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JacobParser#functype}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunctype(JacobParser.FunctypeContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JacobParser#functype}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunctype(JacobParser.FunctypeContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link JacobParser#blockif}.
 	 * @param ctx the parse tree
 	 */
@@ -213,6 +243,18 @@ public interface JacobListener extends ParseTreeListener {
 	 */
 	void exitType(JacobParser.TypeContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code Float}
+	 * labeled alternative in {@link JacobParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterFloat(JacobParser.FloatContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Float}
+	 * labeled alternative in {@link JacobParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitFloat(JacobParser.FloatContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code AddSub}
 	 * labeled alternative in {@link JacobParser#expr}.
 	 * @param ctx the parse tree
@@ -249,17 +291,17 @@ public interface JacobListener extends ParseTreeListener {
 	 */
 	void exitCallFunc(JacobParser.CallFuncContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code Real}
+	 * Enter a parse tree produced by the {@code UnaryMinus}
 	 * labeled alternative in {@link JacobParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void enterReal(JacobParser.RealContext ctx);
+	void enterUnaryMinus(JacobParser.UnaryMinusContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code Real}
+	 * Exit a parse tree produced by the {@code UnaryMinus}
 	 * labeled alternative in {@link JacobParser#expr}.
 	 * @param ctx the parse tree
 	 */
-	void exitReal(JacobParser.RealContext ctx);
+	void exitUnaryMinus(JacobParser.UnaryMinusContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code Id}
 	 * labeled alternative in {@link JacobParser#expr}.
@@ -296,4 +338,14 @@ public interface JacobListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitMultDiv(JacobParser.MultDivContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link JacobParser#args}.
+	 * @param ctx the parse tree
+	 */
+	void enterArgs(JacobParser.ArgsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link JacobParser#args}.
+	 * @param ctx the parse tree
+	 */
+	void exitArgs(JacobParser.ArgsContext ctx);
 }

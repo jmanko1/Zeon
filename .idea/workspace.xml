@@ -5,10 +5,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="22b3b9ea-34be-4a7c-a00d-ae895d964dd7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/main.jacob" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/Cond.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/Function.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.jacob" beforeDir="false" afterPath="$PROJECT_DIR$/main.jacob" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/examples/block/LLVMActions.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/examples/block/LLVMGenerator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/examples/block/LangX.g4" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/examples/block/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/examples/block/Makefile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/examples/block/block.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/examples/block/test.x" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/examples/func/LLVMActions.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/examples/func/LLVMGenerator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/examples/func/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/examples/readwrite/LLVMActions.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/examples/readwrite/LLVMGenerator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/examples/readwrite/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Cond.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Jacob.interp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Jacob.interp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/Jacob.tokens" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Jacob.tokens" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/JacobBaseListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/JacobBaseListener.java" afterDir="false" />
@@ -21,6 +35,9 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/JacobVisitor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/JacobVisitor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/LLVMActions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/LLVMActions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/LLVMGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/LLVMGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Type.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Type.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/Variable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/Variable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/Jacob.g4" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Jacob.g4" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -32,8 +49,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
