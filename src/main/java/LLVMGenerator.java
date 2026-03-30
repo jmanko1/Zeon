@@ -152,21 +152,20 @@ public class LLVMGenerator {
 
     static void printf(String id, Type type) {
         String format = "";
-        String size = "[4 x i8]"; // Domyślnie dla %d\n i %f\n
+        String size = "[4 x i8]";
 
         switch (type) {
             case INT -> format = "@strp";
             case FLOAT, DOUBLE -> format = "@strf";
             case LONG_INT -> {
                 format = "@strpl";
-                size = "[5 x i8]"; // Dla %ld\n\0 (5 znaków)
+                size = "[5 x i8]";
             }
         }
 
         String t = getTypeText(type);
 
         buffer += "%" + tmp + " = call i32 (i8*, ...) @printf(i8* getelementptr inbounds ";
-        // Używamy zmiennej 'size' zamiast sztywnego '[4 x i8]'
         buffer += "(" + size + ", " + size + "* " + format + ", i32 0, i32 0), " + t + " " + id + ")\n";
         tmp++;
     }
@@ -230,8 +229,7 @@ public class LLVMGenerator {
 
     static void endIf() {
         int b = brStack.pop();
-        String check = buffer.trim();
-        if (!check.endsWith("ret i64 %3") && !check.contains("ret ")) {
+        if (!buffer.trim().contains("ret ")) {
             buffer += "br label %false" + b + "\n";
         }
         buffer += "false" + b + ":\n";

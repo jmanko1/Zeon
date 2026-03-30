@@ -7,10 +7,10 @@ public class Main {
     public static void main(String[] args) throws IOException {
         CharStream input = CharStreams.fromFileName(args[0]);
 
-        JacobLexer lexer = new JacobLexer(input);
+        ZeonLexer lexer = new ZeonLexer(input);
 
         CommonTokenStream tokens = new CommonTokenStream(lexer);
-        JacobParser parser = new JacobParser(tokens);
+        ZeonParser parser = new ZeonParser(tokens);
 
         ParseTree tree = parser.program();
 

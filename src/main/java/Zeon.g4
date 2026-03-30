@@ -1,20 +1,20 @@
-grammar Jacob;
+grammar Zeon;
 
 program	: (func | stat)* EOF ;
 
-block: stat+ ;
+block: stat* ;
 
 stat    : decl SEMIC	        # DeclStat
         | assign SEMIC		    # AssignStat
         | print SEMIC		    # PrintStat
         | read SEMIC		    # ReadStat
         | expr SEMIC		    # ExprStat
-        | blockif		        # IfStat
+        | blockifelse		    # IfElseStat
         | blockwhile		    # WhileStat
         | RETURN expr SEMIC	    # ReturnStat
         ;
 
-func    : functype ID LBRAC params? RBRAC LCLASP block RCLASP ;
+func    : functype ID LPAREN params? RPAREN LBRACE block RBRACE ;
 
 params  :   param (COMMA param)* ;
 
@@ -22,9 +22,13 @@ param   : type ID ;
 
 functype    : type | VOID ;
 
-blockif     : IF LBRAC cond RBRAC LCLASP block RCLASP ;
+blockifelse     : blockif blockelse?;
 
-blockwhile  : WHILE LBRAC cond RBRAC LCLASP block RCLASP ;
+blockif     : IF LPAREN cond RPAREN LBRACE block RBRACE ;
+
+blockelse   : ELSE LBRACE block RBRACE ;
+
+blockwhile  : WHILE LPAREN cond RPAREN LBRACE block RBRACE ;
 
 cond	: expr op=(EQ | NEQ | GT | LT | GTE | LTE) expr ;
 
@@ -32,17 +36,17 @@ decl	: type ID ;
 
 assign	: (type)? ID ASSIGN expr ;
 
-print	: PRINT LBRAC expr RBRAC ;
-read	: (type)? ID ASSIGN READ LBRAC RBRAC ;
+print	: PRINT LPAREN expr RPAREN ;
+read	: (type)? ID ASSIGN READ LPAREN RPAREN ;
 
 type	: INTTYPE | FLOATTYPE | LONGINT | DOUBLE ;
 
-expr    : LBRAC expr RBRAC		        # Parens
-        | ID LBRAC args? RBRAC          # CallFunc
+expr    : LPAREN expr RPAREN		        # Parens
+        | ID LPAREN args? RPAREN          # CallFunc
         | SUB expr                      # UnaryMinus
         | expr op=(MULT | DIV) expr	    # MultDiv
         | expr op=(ADD | SUB) expr	    # AddSub
-        | REAL				            # Float
+        | REAL				            # Real
         | INT				            # Int
         | ID				            # Id
         ;
@@ -63,16 +67,16 @@ RETURN	    : 'return' ;
 
 REAL	: [0-9]+ '.' [0-9]+ ;
 INT	    : [0-9]+ ;
-ID      : [a-z][a-z0-9]* ;
+ID      : [a-z]([a-z0-9_]*[a-z0-9])? ;
 SEMIC	: ';' ;
 COMMA   : ',' ;
 ASSIGN	: '=' ;
-LBRAC	: '(' ;
-RBRAC	: ')' ;
-LCLASP	: '{' ;
-RCLASP	: '}' ;
-LSQBRAC : '[' ;
-RSQBRAC : ']' ;
+LPAREN	: '(' ;
+RPAREN	: ')' ;
+LBRACE	: '{' ;
+RBRACE	: '}' ;
+LBRACKET : '[' ;
+RBRACKET : ']' ;
 ADD	    : '+' ;
 SUB     : '-' ;
 MULT    : '*' ;

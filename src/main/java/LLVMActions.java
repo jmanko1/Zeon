@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
 
-public class LLVMActions extends JacobBaseListener {
+public class LLVMActions extends ZeonBaseListener {
     private Map<String, Function> functions = new HashMap<>();
     private Set<Variable> globalVariables = new HashSet<>();
     private Stack<Set<Variable>> localVariables = new Stack<>();
@@ -14,40 +14,14 @@ public class LLVMActions extends JacobBaseListener {
     private Stack<Type> typeStack = new Stack<>();
     private Stack<String> valueStack = new Stack<>();
 
-    private void error(ParserRuleContext ctx, String msg) {
-        int line = ctx.getStart().getLine();
-        System.err.println("Error at line " + line + ": " + msg);
-        System.exit(1);
-    }
-
     @Override
-    public void enterProgram(JacobParser.ProgramContext ctx) {
+    public void enterProgram(ZeonParser.ProgramContext ctx) {
         global = true;
         currentFunction = null;
     }
 
-    private boolean isDeclaredInTheScope(String id) {
-        if (global)
-            return globalVariables.stream().anyMatch(v -> v.getName().equals(id));
-        else
-            return localVariables.stream().anyMatch(s -> s.stream().anyMatch(v -> v.getName().equals(id)));
-    }
-
-    private void registerVariable(ParserRuleContext ctx, String id, Type type) {
-        if (isDeclaredInTheScope(id))
-            error(ctx, "Variable " + id + " is already declared in the scope.");
-
-        Variable newVar = new Variable(id, false, type);
-        if (global)
-            globalVariables.add(newVar);
-        else
-            localVariables.peek().add(newVar);
-
-        LLVMGenerator.declare(id, global, type);
-    }
-
     @Override
-    public void exitProgram(JacobParser.ProgramContext ctx) {
+    public void exitProgram(ZeonParser.ProgramContext ctx) {
         LLVMGenerator.close_main();
         String code = LLVMGenerator.generate();
 
@@ -60,14 +34,14 @@ public class LLVMActions extends JacobBaseListener {
     }
 
     @Override
-    public void exitDeclStat(JacobParser.DeclStatContext ctx) {
+    public void exitDeclStat(ZeonParser.DeclStatContext ctx) {
         String id = ctx.decl().ID().getText();
         Type type = mapAntlrTypeToEnum(ctx.decl().type().getText());
         registerVariable(ctx, id, type);
     }
 
     @Override
-    public void exitAssignStat(JacobParser.AssignStatContext ctx) {
+    public void exitAssignStat(ZeonParser.AssignStatContext ctx) {
         String id = ctx.assign().ID().getText();
         String value = valueStack.pop();
         Type exprType = typeStack.pop();
@@ -90,7 +64,7 @@ public class LLVMActions extends JacobBaseListener {
     }
 
     @Override
-    public void exitPrintStat(JacobParser.PrintStatContext ctx) {
+    public void exitPrintStat(ZeonParser.PrintStatContext ctx) {
         String value = valueStack.pop();
         Type type = typeStack.pop();
 
@@ -104,7 +78,7 @@ public class LLVMActions extends JacobBaseListener {
     }
 
     @Override
-    public void exitRead(JacobParser.ReadContext ctx) {
+    public void exitRead(ZeonParser.ReadContext ctx) {
         String id = ctx.ID().getText();
         if (ctx.type() != null) {
             registerVariable(ctx, id, mapAntlrTypeToEnum(ctx.type().getText()));
@@ -119,7 +93,7 @@ public class LLVMActions extends JacobBaseListener {
     }
 
     @Override
-    public void exitUnaryMinus(JacobParser.UnaryMinusContext ctx) {
+    public void exitUnaryMinus(ZeonParser.UnaryMinusContext ctx) {
         Type type = typeStack.pop();
         String value = valueStack.pop();
 
@@ -134,28 +108,26 @@ public class LLVMActions extends JacobBaseListener {
     }
 
     @Override
-    public void exitInt(JacobParser.IntContext ctx) {
+    public void exitInt(ZeonParser.IntContext ctx) {
         String value = ctx.INT().getText();
-        LLVMGenerator.add("0", value, Type.INT);
+        LLVMGenerator.add("0", value, Type.LONG_INT);
 
         valueStack.push("%" + (LLVMGenerator.tmp - 1));
-        typeStack.push(Type.INT);
+        typeStack.push(Type.LONG_INT);
     }
 
 
     @Override
-    public void exitFloat(JacobParser.FloatContext ctx) {
-        String rawValue = ctx.REAL().getText();
-        LLVMGenerator.fptrunc(rawValue, Type.DOUBLE, Type.FLOAT);
+    public void exitReal(ZeonParser.RealContext ctx) {
+        String value = ctx.REAL().getText();
+        LLVMGenerator.fadd("0.0", value, Type.DOUBLE);
 
-        valueStack.push("%" + LLVMGenerator.tmp);
-        typeStack.push(Type.FLOAT);
-
-        LLVMGenerator.tmp++;
+        valueStack.push("%" + (LLVMGenerator.tmp - 1));
+        typeStack.push(Type.DOUBLE);
     }
 
     @Override
-    public void exitId(JacobParser.IdContext ctx) {
+    public void exitId(ZeonParser.IdContext ctx) {
         String id = ctx.ID().getText();
         Variable variable = findVariable(id);
         if (variable == null)
@@ -175,7 +147,7 @@ public class LLVMActions extends JacobBaseListener {
     }
 
     @Override
-    public void exitAddSub(JacobParser.AddSubContext ctx) {
+    public void exitAddSub(ZeonParser.AddSubContext ctx) {
         String op = ctx.op.getText();
 
         Type typeRight = typeStack.pop();
@@ -205,7 +177,7 @@ public class LLVMActions extends JacobBaseListener {
     }
 
     @Override
-    public void exitMultDiv(JacobParser.MultDivContext ctx) {
+    public void exitMultDiv(ZeonParser.MultDivContext ctx) {
         String op = ctx.op.getText();
 
         Type typeRight = typeStack.pop();
@@ -235,13 +207,13 @@ public class LLVMActions extends JacobBaseListener {
     }
 
     @Override
-    public void enterBlockif(JacobParser.BlockifContext ctx) {
+    public void enterBlockif(ZeonParser.BlockifContext ctx) {
         global = false;
         localVariables.push(new HashSet<>());
     }
 
     @Override
-    public void exitCond(JacobParser.CondContext ctx) {
+    public void exitCond(ZeonParser.CondContext ctx) {
         String op = ctx.op.getText();
 
         Type typeRight = typeStack.pop();
@@ -262,15 +234,14 @@ public class LLVMActions extends JacobBaseListener {
         valueStack.push(condResult);
         typeStack.push(Type.INT);
 
-        if (ctx.getParent() instanceof JacobParser.BlockifContext) {
+        if (ctx.getParent() instanceof ZeonParser.BlockifContext)
             LLVMGenerator.startIf(condResult);
-        } else if (ctx.getParent() instanceof JacobParser.BlockwhileContext) {
+        else if (ctx.getParent() instanceof ZeonParser.BlockwhileContext)
             LLVMGenerator.whileCond(condResult);
-        }
     }
 
     @Override
-    public void exitBlockif(JacobParser.BlockifContext ctx) {
+    public void exitBlockif(ZeonParser.BlockifContext ctx) {
         localVariables.pop();
 
         if (localVariables.size() <= 1 && currentFunction == null) {
@@ -281,14 +252,14 @@ public class LLVMActions extends JacobBaseListener {
     }
 
     @Override
-    public void enterBlockwhile(JacobParser.BlockwhileContext ctx) {
+    public void enterBlockwhile(ZeonParser.BlockwhileContext ctx) {
         global = false;
         localVariables.push(new HashSet<>());
         LLVMGenerator.startWhile();
     }
 
     @Override
-    public void exitBlockwhile(JacobParser.BlockwhileContext ctx) {
+    public void exitBlockwhile(ZeonParser.BlockwhileContext ctx) {
         localVariables.pop();
 
         if (localVariables.size() <= 1 && currentFunction == null)
@@ -298,7 +269,7 @@ public class LLVMActions extends JacobBaseListener {
     }
 
     @Override
-    public void enterFunc(JacobParser.FuncContext ctx) {
+    public void enterFunc(ZeonParser.FuncContext ctx) {
         global = false;
 
         String id = ctx.ID().getText();
@@ -312,7 +283,7 @@ public class LLVMActions extends JacobBaseListener {
 
         if (ctx.params() != null) {
             for (int i = 0; i < ctx.params().param().size(); i++) {
-                JacobParser.ParamContext pctx = ctx.params().param(i);
+                ZeonParser.ParamContext pctx = ctx.params().param(i);
                 String paramId = pctx.ID().getText();
                 String paramType = mapAntlrTypeToLlvmType(pctx.type().getText());
                 funcHeaderBuilder.append(paramType).append(" %").append(paramId);
@@ -334,7 +305,7 @@ public class LLVMActions extends JacobBaseListener {
     }
 
     @Override
-    public void exitFunc(JacobParser.FuncContext ctx) {
+    public void exitFunc(ZeonParser.FuncContext ctx) {
         global = true;
         currentFunction = null;
 
@@ -345,7 +316,7 @@ public class LLVMActions extends JacobBaseListener {
     }
 
     @Override
-    public void exitCallFunc(JacobParser.CallFuncContext ctx) {
+    public void exitCallFunc(ZeonParser.CallFuncContext ctx) {
         String id = ctx.ID().getText();
         Function function = functions.get(id);
         if (function == null)
@@ -378,7 +349,7 @@ public class LLVMActions extends JacobBaseListener {
     }
 
     @Override
-    public void exitReturnStat(JacobParser.ReturnStatContext ctx) {
+    public void exitReturnStat(ZeonParser.ReturnStatContext ctx) {
         if (currentFunction == null)
             error(ctx, "Return statement outside of a function.");
 
@@ -390,6 +361,32 @@ public class LLVMActions extends JacobBaseListener {
         String convertedValue = ensureType(exprValue, exprType, currentFunction.getReturnType());
         LLVMGenerator.ret(convertedValue, currentFunction.getReturnType());
         currentFunction.setHasReturn(true);
+    }
+
+    private void error(ParserRuleContext ctx, String msg) {
+        int line = ctx.getStart().getLine();
+        System.err.println("Error at line " + line + ": " + msg);
+        System.exit(1);
+    }
+
+    private boolean isDeclaredInTheScope(String id) {
+        if (global)
+            return globalVariables.stream().anyMatch(v -> v.getName().equals(id));
+        else
+            return localVariables.stream().anyMatch(s -> s.stream().anyMatch(v -> v.getName().equals(id)));
+    }
+
+    private void registerVariable(ParserRuleContext ctx, String id, Type type) {
+        if (isDeclaredInTheScope(id))
+            error(ctx, "Variable " + id + " is already declared in the scope.");
+
+        Variable newVar = new Variable(id, false, type);
+        if (global)
+            globalVariables.add(newVar);
+        else
+            localVariables.peek().add(newVar);
+
+        LLVMGenerator.declare(id, global, type);
     }
 
     private String mapAntlrTypeToLlvmType(String antlrType) {
@@ -429,11 +426,13 @@ public class LLVMActions extends JacobBaseListener {
                 (target == Type.FLOAT || target == Type.DOUBLE)) {
             LLVMGenerator.sitofp(value, current, target);
         }
+
         // float/double -> int/long int
         else if ((current == Type.FLOAT || current == Type.DOUBLE) &&
                 (target == Type.INT || target == Type.LONG_INT)) {
             LLVMGenerator.fptosi(value, current, target);
         }
+
         else
             return value;
 

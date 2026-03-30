@@ -1,388 +1,412 @@
-// Generated from C:/Users/Kuba/IdeaProjects/Compiler/src/main/resources/Jacob.g4 by ANTLR 4.13.2
+// Generated from C:/Users/Kuba/IdeaProjects/Compiler/src/main/java/Zeon.g4 by ANTLR 4.13.2
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 /**
- * This class provides an empty implementation of {@link JacobListener},
+ * This class provides an empty implementation of {@link ZeonListener},
  * which can be extended to create a listener which only needs to handle a subset
  * of the available methods.
  */
 @SuppressWarnings("CheckReturnValue")
-public class JacobBaseListener implements JacobListener {
+public class ZeonBaseListener implements ZeonListener {
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterProgram(JacobParser.ProgramContext ctx) { }
+	@Override public void enterProgram(ZeonParser.ProgramContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitProgram(JacobParser.ProgramContext ctx) { }
+	@Override public void exitProgram(ZeonParser.ProgramContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBlock(JacobParser.BlockContext ctx) { }
+	@Override public void enterBlock(ZeonParser.BlockContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBlock(JacobParser.BlockContext ctx) { }
+	@Override public void exitBlock(ZeonParser.BlockContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDeclStat(JacobParser.DeclStatContext ctx) { }
+	@Override public void enterDeclStat(ZeonParser.DeclStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDeclStat(JacobParser.DeclStatContext ctx) { }
+	@Override public void exitDeclStat(ZeonParser.DeclStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAssignStat(JacobParser.AssignStatContext ctx) { }
+	@Override public void enterAssignStat(ZeonParser.AssignStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAssignStat(JacobParser.AssignStatContext ctx) { }
+	@Override public void exitAssignStat(ZeonParser.AssignStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPrintStat(JacobParser.PrintStatContext ctx) { }
+	@Override public void enterPrintStat(ZeonParser.PrintStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPrintStat(JacobParser.PrintStatContext ctx) { }
+	@Override public void exitPrintStat(ZeonParser.PrintStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterReadStat(JacobParser.ReadStatContext ctx) { }
+	@Override public void enterReadStat(ZeonParser.ReadStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitReadStat(JacobParser.ReadStatContext ctx) { }
+	@Override public void exitReadStat(ZeonParser.ReadStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExprStat(JacobParser.ExprStatContext ctx) { }
+	@Override public void enterExprStat(ZeonParser.ExprStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExprStat(JacobParser.ExprStatContext ctx) { }
+	@Override public void exitExprStat(ZeonParser.ExprStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIfStat(JacobParser.IfStatContext ctx) { }
+	@Override public void enterIfElseStat(ZeonParser.IfElseStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIfStat(JacobParser.IfStatContext ctx) { }
+	@Override public void exitIfElseStat(ZeonParser.IfElseStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterWhileStat(JacobParser.WhileStatContext ctx) { }
+	@Override public void enterWhileStat(ZeonParser.WhileStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitWhileStat(JacobParser.WhileStatContext ctx) { }
+	@Override public void exitWhileStat(ZeonParser.WhileStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterReturnStat(JacobParser.ReturnStatContext ctx) { }
+	@Override public void enterReturnStat(ZeonParser.ReturnStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitReturnStat(JacobParser.ReturnStatContext ctx) { }
+	@Override public void exitReturnStat(ZeonParser.ReturnStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFunc(JacobParser.FuncContext ctx) { }
+	@Override public void enterFunc(ZeonParser.FuncContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFunc(JacobParser.FuncContext ctx) { }
+	@Override public void exitFunc(ZeonParser.FuncContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterParams(JacobParser.ParamsContext ctx) { }
+	@Override public void enterParams(ZeonParser.ParamsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitParams(JacobParser.ParamsContext ctx) { }
+	@Override public void exitParams(ZeonParser.ParamsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterParam(JacobParser.ParamContext ctx) { }
+	@Override public void enterParam(ZeonParser.ParamContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitParam(JacobParser.ParamContext ctx) { }
+	@Override public void exitParam(ZeonParser.ParamContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFunctype(JacobParser.FunctypeContext ctx) { }
+	@Override public void enterFunctype(ZeonParser.FunctypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFunctype(JacobParser.FunctypeContext ctx) { }
+	@Override public void exitFunctype(ZeonParser.FunctypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBlockif(JacobParser.BlockifContext ctx) { }
+	@Override public void enterBlockifelse(ZeonParser.BlockifelseContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBlockif(JacobParser.BlockifContext ctx) { }
+	@Override public void exitBlockifelse(ZeonParser.BlockifelseContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBlockwhile(JacobParser.BlockwhileContext ctx) { }
+	@Override public void enterBlockif(ZeonParser.BlockifContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBlockwhile(JacobParser.BlockwhileContext ctx) { }
+	@Override public void exitBlockif(ZeonParser.BlockifContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCond(JacobParser.CondContext ctx) { }
+	@Override public void enterBlockelse(ZeonParser.BlockelseContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCond(JacobParser.CondContext ctx) { }
+	@Override public void exitBlockelse(ZeonParser.BlockelseContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDecl(JacobParser.DeclContext ctx) { }
+	@Override public void enterBlockwhile(ZeonParser.BlockwhileContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDecl(JacobParser.DeclContext ctx) { }
+	@Override public void exitBlockwhile(ZeonParser.BlockwhileContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAssign(JacobParser.AssignContext ctx) { }
+	@Override public void enterCond(ZeonParser.CondContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAssign(JacobParser.AssignContext ctx) { }
+	@Override public void exitCond(ZeonParser.CondContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPrint(JacobParser.PrintContext ctx) { }
+	@Override public void enterDecl(ZeonParser.DeclContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPrint(JacobParser.PrintContext ctx) { }
+	@Override public void exitDecl(ZeonParser.DeclContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRead(JacobParser.ReadContext ctx) { }
+	@Override public void enterAssign(ZeonParser.AssignContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRead(JacobParser.ReadContext ctx) { }
+	@Override public void exitAssign(ZeonParser.AssignContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterType(JacobParser.TypeContext ctx) { }
+	@Override public void enterPrint(ZeonParser.PrintContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitType(JacobParser.TypeContext ctx) { }
+	@Override public void exitPrint(ZeonParser.PrintContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFloat(JacobParser.FloatContext ctx) { }
+	@Override public void enterRead(ZeonParser.ReadContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFloat(JacobParser.FloatContext ctx) { }
+	@Override public void exitRead(ZeonParser.ReadContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAddSub(JacobParser.AddSubContext ctx) { }
+	@Override public void enterType(ZeonParser.TypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAddSub(JacobParser.AddSubContext ctx) { }
+	@Override public void exitType(ZeonParser.TypeContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterParens(JacobParser.ParensContext ctx) { }
+	@Override public void enterAddSub(ZeonParser.AddSubContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitParens(JacobParser.ParensContext ctx) { }
+	@Override public void exitAddSub(ZeonParser.AddSubContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCallFunc(JacobParser.CallFuncContext ctx) { }
+	@Override public void enterParens(ZeonParser.ParensContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitCallFunc(JacobParser.CallFuncContext ctx) { }
+	@Override public void exitParens(ZeonParser.ParensContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterUnaryMinus(JacobParser.UnaryMinusContext ctx) { }
+	@Override public void enterCallFunc(ZeonParser.CallFuncContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitUnaryMinus(JacobParser.UnaryMinusContext ctx) { }
+	@Override public void exitCallFunc(ZeonParser.CallFuncContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterId(JacobParser.IdContext ctx) { }
+	@Override public void enterReal(ZeonParser.RealContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitId(JacobParser.IdContext ctx) { }
+	@Override public void exitReal(ZeonParser.RealContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterInt(JacobParser.IntContext ctx) { }
+	@Override public void enterUnaryMinus(ZeonParser.UnaryMinusContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitInt(JacobParser.IntContext ctx) { }
+	@Override public void exitUnaryMinus(ZeonParser.UnaryMinusContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMultDiv(JacobParser.MultDivContext ctx) { }
+	@Override public void enterId(ZeonParser.IdContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMultDiv(JacobParser.MultDivContext ctx) { }
+	@Override public void exitId(ZeonParser.IdContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterArgs(JacobParser.ArgsContext ctx) { }
+	@Override public void enterInt(ZeonParser.IntContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitArgs(JacobParser.ArgsContext ctx) { }
+	@Override public void exitInt(ZeonParser.IntContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMultDiv(ZeonParser.MultDivContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMultDiv(ZeonParser.MultDivContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterArgs(ZeonParser.ArgsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitArgs(ZeonParser.ArgsContext ctx) { }
 
 	/**
 	 * {@inheritDoc}
