@@ -30,7 +30,12 @@ blockelse   : ELSE LBRACE block RBRACE ;
 
 blockwhile  : WHILE LPAREN cond RPAREN LBRACE block RBRACE ;
 
-cond	: expr op=(EQ | NEQ | GT | LT | GTE | LTE) expr ;
+cond        : orCond ;
+orCond      : andCond (OR andCond)* ;
+andCond     : atomCond (AND atomCond)* ;
+atomCond    : expr op=(EQ|NEQ|GT|LT|GTE|LTE) expr
+            | LPAREN cond RPAREN
+            ;
 
 decl	: type ID ;
 
@@ -90,3 +95,6 @@ LTE	    : '<=' ;
 
 COMMENT : '#' ~[\r\n]* -> skip ;
 WS	    : [ \t\r\n]+ -> skip ;
+
+AND : '&&' ;
+OR  : '||' ;

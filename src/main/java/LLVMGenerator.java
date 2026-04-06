@@ -303,4 +303,14 @@ public class LLVMGenerator {
         buffer += "%" + tmp + " = fptrunc " + getTypeText(fromType) + " " + id + " to " + getTypeText(toType) + "\n";
         tmp++;
     }
+
+    static void andBool(String left, String right) {
+        buffer += "%" + tmp + " = and i1 " + left + ", " + right + "\n";
+        tmp++;
+    }
+
+    static void orBool(String left, String right) {
+        buffer += "%" + tmp + " = or i1 " + left + ", " + right + "\n";
+        tmp++;
+    }
 }

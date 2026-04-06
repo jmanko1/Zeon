@@ -212,8 +212,14 @@ public class LLVMActions extends ZeonBaseListener {
         localVariables.push(new HashSet<>());
     }
 
+
+
     @Override
-    public void exitCond(ZeonParser.CondContext ctx) {
+    public void exitAtomCond(ZeonParser.AtomCondContext ctx) {
+        if (ctx.expr().size() != 2) {
+            return;
+        }
+
         String op = ctx.op.getText();
 
         Type typeRight = typeStack.pop();
@@ -230,20 +236,66 @@ public class LLVMActions extends ZeonBaseListener {
         else
             LLVMGenerator.icmp(valueLeft, op, valueRight, targetType);
 
-        String condResult = "%" + (LLVMGenerator.tmp - 1);
-        valueStack.push(condResult);
+        valueStack.push("%" + (LLVMGenerator.tmp - 1));
         typeStack.push(Type.INT);
+    }
 
-        if (ctx.getParent() instanceof ZeonParser.BlockifContext)
+    @Override
+    public void exitAndCond(ZeonParser.AndCondContext ctx) {
+        System.out.println("AND exit: " + ctx.getText());
+        System.out.println("AND operators=" + ctx.AND().size());
+        System.out.println("AND before, values=" + valueStack.size() + ", types=" + typeStack.size());
+
+        int andCount = ctx.AND().size();
+        if (andCount == 0) {
+            return;
+        }
+
+        for (int i = 0; i < andCount; i++) {
+            typeStack.pop();
+            typeStack.pop();
+            String rightValue = valueStack.pop();
+            String leftValue = valueStack.pop();
+
+            LLVMGenerator.andBool(leftValue, rightValue);
+
+            valueStack.push("%" + (LLVMGenerator.tmp - 1));
+            typeStack.push(Type.INT);
+        }
+    }
+
+    @Override
+    public void exitOrCond(ZeonParser.OrCondContext ctx) {
+        int orCount = ctx.OR().size();
+        if (orCount == 0) {
+            return;
+        }
+
+        for (int i = 0; i < orCount; i++) {
+            typeStack.pop();
+            typeStack.pop();
+            String rightValue = valueStack.pop();
+            String leftValue = valueStack.pop();
+
+            LLVMGenerator.orBool(leftValue, rightValue);
+
+            valueStack.push("%" + (LLVMGenerator.tmp - 1));
+            typeStack.push(Type.INT);
+        }
+    }
+
+    @Override
+    public void enterBlock(ZeonParser.BlockContext ctx) {
+        if (ctx.getParent() instanceof ZeonParser.BlockifContext) {
+            String condResult = valueStack.pop();
+            typeStack.pop();
             LLVMGenerator.startIf(condResult);
-        else if (ctx.getParent() instanceof ZeonParser.BlockwhileContext)
-            LLVMGenerator.whileCond(condResult);
+        }
     }
 
     @Override
     public void exitBlockif(ZeonParser.BlockifContext ctx) {
         localVariables.pop();
-
         if (localVariables.size() <= 1 && currentFunction == null) {
             global = true;
         }

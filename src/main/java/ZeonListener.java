@@ -1,4 +1,4 @@
-// Generated from C:/Users/Kuba/IdeaProjects/Compiler/src/main/java/Zeon.g4 by ANTLR 4.13.2
+// Generated from src/main/java/Zeon.g4 by ANTLR 4.13.2
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -212,6 +212,36 @@ public interface ZeonListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitCond(ZeonParser.CondContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ZeonParser#orCond}.
+	 * @param ctx the parse tree
+	 */
+	void enterOrCond(ZeonParser.OrCondContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ZeonParser#orCond}.
+	 * @param ctx the parse tree
+	 */
+	void exitOrCond(ZeonParser.OrCondContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ZeonParser#andCond}.
+	 * @param ctx the parse tree
+	 */
+	void enterAndCond(ZeonParser.AndCondContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ZeonParser#andCond}.
+	 * @param ctx the parse tree
+	 */
+	void exitAndCond(ZeonParser.AndCondContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link ZeonParser#atomCond}.
+	 * @param ctx the parse tree
+	 */
+	void enterAtomCond(ZeonParser.AtomCondContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link ZeonParser#atomCond}.
+	 * @param ctx the parse tree
+	 */
+	void exitAtomCond(ZeonParser.AtomCondContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link ZeonParser#decl}.
 	 * @param ctx the parse tree
