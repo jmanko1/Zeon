@@ -35,6 +35,7 @@ orCond      : andCond (OR andCond)* ;
 andCond     : atomCond (AND atomCond)* ;
 atomCond    : expr op=(EQ|NEQ|GT|LT|GTE|LTE) expr
             | LPAREN cond RPAREN
+            | expr
             ;
 
 decl	: type ID ;
@@ -44,7 +45,7 @@ assign	: (type)? ID ASSIGN expr ;
 print	: PRINT LPAREN expr RPAREN ;
 read	: (type)? ID ASSIGN READ LPAREN RPAREN ;
 
-type	: INTTYPE | FLOATTYPE | LONGINT | DOUBLE ;
+type	: INTTYPE | FLOATTYPE | LONGINT | DOUBLE | BOOLTYPE;
 
 expr    : LPAREN expr RPAREN		        # Parens
         | ID LPAREN args? RPAREN          # CallFunc
@@ -54,6 +55,8 @@ expr    : LPAREN expr RPAREN		        # Parens
         | REAL				            # Real
         | INT				            # Int
         | ID				            # Id
+        | TRUE  #TrueLit
+        | FALSE #FalseLit
         ;
 
 args    : expr (COMMA expr)* ;
@@ -69,6 +72,12 @@ IF	        : 'if' ;
 ELSE        : 'else' ;
 WHILE	    : 'while' ;
 RETURN	    : 'return' ;
+
+AND : '&&' ;
+OR  : '||' ;
+BOOLTYPE : 'bool' ;
+TRUE     : 'true' ;
+FALSE    : 'false' ;
 
 REAL	: [0-9]+ '.' [0-9]+ ;
 INT	    : [0-9]+ ;
@@ -95,6 +104,3 @@ LTE	    : '<=' ;
 
 COMMENT : '#' ~[\r\n]* -> skip ;
 WS	    : [ \t\r\n]+ -> skip ;
-
-AND : '&&' ;
-OR  : '||' ;

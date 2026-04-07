@@ -1,4 +1,4 @@
-// Generated from C:/Users/Kuba/IdeaProjects/Compiler/src/main/java/Zeon.g4 by ANTLR 4.13.2
+// Generated from Zeon.g4 by ANTLR 4.13.2
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -132,6 +132,24 @@ public interface ZeonVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitCond(ZeonParser.CondContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link ZeonParser#orCond}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOrCond(ZeonParser.OrCondContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ZeonParser#andCond}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAndCond(ZeonParser.AndCondContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link ZeonParser#atomCond}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAtomCond(ZeonParser.AtomCondContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link ZeonParser#decl}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -190,12 +208,26 @@ public interface ZeonVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitReal(ZeonParser.RealContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code FalseLit}
+	 * labeled alternative in {@link ZeonParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFalseLit(ZeonParser.FalseLitContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code UnaryMinus}
 	 * labeled alternative in {@link ZeonParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitUnaryMinus(ZeonParser.UnaryMinusContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TrueLit}
+	 * labeled alternative in {@link ZeonParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrueLit(ZeonParser.TrueLitContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code Id}
 	 * labeled alternative in {@link ZeonParser#expr}.

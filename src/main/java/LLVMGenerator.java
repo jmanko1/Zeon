@@ -33,6 +33,7 @@ public class LLVMGenerator {
             case LONG_INT -> "i64";
             case DOUBLE -> "double";
             case INT -> "i32";
+            case BOOL -> "i1";
             default -> "void";
         };
     }
@@ -77,6 +78,13 @@ public class LLVMGenerator {
         String toTypeStr = getTypeText(toType);
 
         buffer += "%" + tmp + " = fpext " + fromTypeStr + " " + id + " to " + toTypeStr + "\n";
+        tmp++;
+    }
+
+    static void zext(String id, Type fromType, Type toType) {
+        String fromTypeStr = getTypeText(fromType);
+        String toTypeStr = getTypeText(toType);
+        buffer += "%" + tmp + " = zext " + fromTypeStr + " " + id + " to " + toTypeStr + "\n";
         tmp++;
     }
 

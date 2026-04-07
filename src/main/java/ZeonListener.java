@@ -1,4 +1,4 @@
-// Generated from src/main/java/Zeon.g4 by ANTLR 4.13.2
+// Generated from Zeon.g4 by ANTLR 4.13.2
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -341,6 +341,18 @@ public interface ZeonListener extends ParseTreeListener {
 	 */
 	void exitReal(ZeonParser.RealContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code FalseLit}
+	 * labeled alternative in {@link ZeonParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterFalseLit(ZeonParser.FalseLitContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code FalseLit}
+	 * labeled alternative in {@link ZeonParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitFalseLit(ZeonParser.FalseLitContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code UnaryMinus}
 	 * labeled alternative in {@link ZeonParser#expr}.
 	 * @param ctx the parse tree
@@ -352,6 +364,18 @@ public interface ZeonListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitUnaryMinus(ZeonParser.UnaryMinusContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code TrueLit}
+	 * labeled alternative in {@link ZeonParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterTrueLit(ZeonParser.TrueLitContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code TrueLit}
+	 * labeled alternative in {@link ZeonParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitTrueLit(ZeonParser.TrueLitContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code Id}
 	 * labeled alternative in {@link ZeonParser#expr}.

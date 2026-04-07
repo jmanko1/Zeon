@@ -3,5 +3,6 @@ public enum Type {
     FLOAT,
     LONG_INT,
     DOUBLE,
-    VOID
+    VOID,
+    BOOL
 }

@@ -1,4 +1,4 @@
-// Generated from src/main/java/Zeon.g4 by ANTLR 4.13.2
+// Generated from Zeon.g4 by ANTLR 4.13.2
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
 import org.antlr.v4.runtime.*;
@@ -17,10 +17,11 @@ public class ZeonParser extends Parser {
 		new PredictionContextCache();
 	public static final int
 		READ=1, PRINT=2, LONGINT=3, INTTYPE=4, FLOATTYPE=5, DOUBLE=6, VOID=7, 
-		IF=8, ELSE=9, WHILE=10, RETURN=11, REAL=12, INT=13, ID=14, SEMIC=15, COMMA=16, 
-		ASSIGN=17, LPAREN=18, RPAREN=19, LBRACE=20, RBRACE=21, LBRACKET=22, RBRACKET=23, 
-		ADD=24, SUB=25, MULT=26, DIV=27, EQ=28, NEQ=29, GT=30, LT=31, GTE=32, 
-		LTE=33, COMMENT=34, WS=35, AND=36, OR=37;
+		IF=8, ELSE=9, WHILE=10, RETURN=11, AND=12, OR=13, BOOLTYPE=14, TRUE=15, 
+		FALSE=16, REAL=17, INT=18, ID=19, SEMIC=20, COMMA=21, ASSIGN=22, LPAREN=23, 
+		RPAREN=24, LBRACE=25, RBRACE=26, LBRACKET=27, RBRACKET=28, ADD=29, SUB=30, 
+		MULT=31, DIV=32, EQ=33, NEQ=34, GT=35, LT=36, GTE=37, LTE=38, COMMENT=39, 
+		WS=40;
 	public static final int
 		RULE_program = 0, RULE_block = 1, RULE_stat = 2, RULE_func = 3, RULE_params = 4, 
 		RULE_param = 5, RULE_functype = 6, RULE_blockifelse = 7, RULE_blockif = 8, 
@@ -39,20 +40,20 @@ public class ZeonParser extends Parser {
 	private static String[] makeLiteralNames() {
 		return new String[] {
 			null, "'read'", "'print'", "'long int'", "'int'", "'float'", "'double'", 
-			"'void'", "'if'", "'else'", "'while'", "'return'", null, null, null, 
-			"';'", "','", "'='", "'('", "')'", "'{'", "'}'", "'['", "']'", "'+'", 
-			"'-'", "'*'", "'/'", "'=='", "'!='", "'>'", "'<'", "'>='", "'<='", null, 
-			null, "'&&'", "'||'"
+			"'void'", "'if'", "'else'", "'while'", "'return'", "'&&'", "'||'", "'bool'", 
+			"'true'", "'false'", null, null, null, "';'", "','", "'='", "'('", "')'", 
+			"'{'", "'}'", "'['", "']'", "'+'", "'-'", "'*'", "'/'", "'=='", "'!='", 
+			"'>'", "'<'", "'>='", "'<='"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
 			null, "READ", "PRINT", "LONGINT", "INTTYPE", "FLOATTYPE", "DOUBLE", "VOID", 
-			"IF", "ELSE", "WHILE", "RETURN", "REAL", "INT", "ID", "SEMIC", "COMMA", 
-			"ASSIGN", "LPAREN", "RPAREN", "LBRACE", "RBRACE", "LBRACKET", "RBRACKET", 
-			"ADD", "SUB", "MULT", "DIV", "EQ", "NEQ", "GT", "LT", "GTE", "LTE", "COMMENT", 
-			"WS", "AND", "OR"
+			"IF", "ELSE", "WHILE", "RETURN", "AND", "OR", "BOOLTYPE", "TRUE", "FALSE", 
+			"REAL", "INT", "ID", "SEMIC", "COMMA", "ASSIGN", "LPAREN", "RPAREN", 
+			"LBRACE", "RBRACE", "LBRACKET", "RBRACKET", "ADD", "SUB", "MULT", "DIV", 
+			"EQ", "NEQ", "GT", "LT", "GTE", "LTE", "COMMENT", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -133,6 +134,11 @@ public class ZeonParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ZeonListener ) ((ZeonListener)listener).exitProgram(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ZeonVisitor ) return ((ZeonVisitor<? extends T>)visitor).visitProgram(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ProgramContext program() throws RecognitionException {
@@ -145,7 +151,7 @@ public class ZeonParser extends Parser {
 			setState(48);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 33848828L) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 1083166204L) != 0)) {
 				{
 				setState(46);
 				_errHandler.sync(this);
@@ -203,6 +209,11 @@ public class ZeonParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ZeonListener ) ((ZeonListener)listener).exitBlock(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ZeonVisitor ) return ((ZeonVisitor<? extends T>)visitor).visitBlock(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final BlockContext block() throws RecognitionException {
@@ -215,7 +226,7 @@ public class ZeonParser extends Parser {
 			setState(56);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 33848700L) != 0)) {
+			while ((((_la) & ~0x3f) == 0 && ((1L << _la) & 1083166076L) != 0)) {
 				{
 				{
 				setState(53);
@@ -266,6 +277,11 @@ public class ZeonParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ZeonListener ) ((ZeonListener)listener).exitDeclStat(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ZeonVisitor ) return ((ZeonVisitor<? extends T>)visitor).visitDeclStat(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class ExprStatContext extends StatContext {
@@ -282,6 +298,11 @@ public class ZeonParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ZeonListener ) ((ZeonListener)listener).exitExprStat(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ZeonVisitor ) return ((ZeonVisitor<? extends T>)visitor).visitExprStat(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class IfElseStatContext extends StatContext {
@@ -296,6 +317,11 @@ public class ZeonParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ZeonListener ) ((ZeonListener)listener).exitIfElseStat(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ZeonVisitor ) return ((ZeonVisitor<? extends T>)visitor).visitIfElseStat(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
@@ -314,6 +340,11 @@ public class ZeonParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ZeonListener ) ((ZeonListener)listener).exitReturnStat(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ZeonVisitor ) return ((ZeonVisitor<? extends T>)visitor).visitReturnStat(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class AssignStatContext extends StatContext {
@@ -329,6 +360,11 @@ public class ZeonParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ZeonListener ) ((ZeonListener)listener).exitAssignStat(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ZeonVisitor ) return ((ZeonVisitor<? extends T>)visitor).visitAssignStat(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
@@ -346,6 +382,11 @@ public class ZeonParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ZeonListener ) ((ZeonListener)listener).exitPrintStat(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ZeonVisitor ) return ((ZeonVisitor<? extends T>)visitor).visitPrintStat(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class WhileStatContext extends StatContext {
@@ -360,6 +401,11 @@ public class ZeonParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ZeonListener ) ((ZeonListener)listener).exitWhileStat(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ZeonVisitor ) return ((ZeonVisitor<? extends T>)visitor).visitWhileStat(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
@@ -376,6 +422,11 @@ public class ZeonParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ZeonListener ) ((ZeonListener)listener).exitReadStat(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ZeonVisitor ) return ((ZeonVisitor<? extends T>)visitor).visitReadStat(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -505,6 +556,11 @@ public class ZeonParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ZeonListener ) ((ZeonListener)listener).exitFunc(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ZeonVisitor ) return ((ZeonVisitor<? extends T>)visitor).visitFunc(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final FuncContext func() throws RecognitionException {
@@ -523,7 +579,7 @@ public class ZeonParser extends Parser {
 			setState(86);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 120L) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 16504L) != 0)) {
 				{
 				setState(85);
 				params();
@@ -574,6 +630,11 @@ public class ZeonParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ZeonListener ) ((ZeonListener)listener).exitParams(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ZeonVisitor ) return ((ZeonVisitor<? extends T>)visitor).visitParams(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -633,6 +694,11 @@ public class ZeonParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ZeonListener ) ((ZeonListener)listener).exitParam(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ZeonVisitor ) return ((ZeonVisitor<? extends T>)visitor).visitParam(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ParamContext param() throws RecognitionException {
@@ -676,6 +742,11 @@ public class ZeonParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ZeonListener ) ((ZeonListener)listener).exitFunctype(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ZeonVisitor ) return ((ZeonVisitor<? extends T>)visitor).visitFunctype(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final FunctypeContext functype() throws RecognitionException {
@@ -689,6 +760,7 @@ public class ZeonParser extends Parser {
 			case INTTYPE:
 			case FLOATTYPE:
 			case DOUBLE:
+			case BOOLTYPE:
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(104);
@@ -736,6 +808,11 @@ public class ZeonParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ZeonListener ) ((ZeonListener)listener).exitBlockifelse(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ZeonVisitor ) return ((ZeonVisitor<? extends T>)visitor).visitBlockifelse(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -796,6 +873,11 @@ public class ZeonParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ZeonListener ) ((ZeonListener)listener).exitBlockif(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ZeonVisitor ) return ((ZeonVisitor<? extends T>)visitor).visitBlockif(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final BlockifContext blockif() throws RecognitionException {
@@ -851,6 +933,11 @@ public class ZeonParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ZeonListener ) ((ZeonListener)listener).exitBlockelse(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ZeonVisitor ) return ((ZeonVisitor<? extends T>)visitor).visitBlockelse(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final BlockelseContext blockelse() throws RecognitionException {
@@ -905,6 +992,11 @@ public class ZeonParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ZeonListener ) ((ZeonListener)listener).exitBlockwhile(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ZeonVisitor ) return ((ZeonVisitor<? extends T>)visitor).visitBlockwhile(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final BlockwhileContext blockwhile() throws RecognitionException {
@@ -957,6 +1049,11 @@ public class ZeonParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ZeonListener ) ((ZeonListener)listener).exitCond(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ZeonVisitor ) return ((ZeonVisitor<? extends T>)visitor).visitCond(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final CondContext cond() throws RecognitionException {
@@ -1003,6 +1100,11 @@ public class ZeonParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ZeonListener ) ((ZeonListener)listener).exitOrCond(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ZeonVisitor ) return ((ZeonVisitor<? extends T>)visitor).visitOrCond(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1067,6 +1169,11 @@ public class ZeonParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ZeonListener ) ((ZeonListener)listener).exitAndCond(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ZeonVisitor ) return ((ZeonVisitor<? extends T>)visitor).visitAndCond(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 
@@ -1140,6 +1247,11 @@ public class ZeonParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ZeonListener ) ((ZeonListener)listener).exitAtomCond(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ZeonVisitor ) return ((ZeonVisitor<? extends T>)visitor).visitAtomCond(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final AtomCondContext atomCond() throws RecognitionException {
@@ -1147,7 +1259,7 @@ public class ZeonParser extends Parser {
 		enterRule(_localctx, 28, RULE_atomCond);
 		int _la;
 		try {
-			setState(159);
+			setState(160);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,10,_ctx) ) {
 			case 1:
@@ -1158,7 +1270,7 @@ public class ZeonParser extends Parser {
 				setState(152);
 				((AtomCondContext)_localctx).op = _input.LT(1);
 				_la = _input.LA(1);
-				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 16911433728L) != 0)) ) {
+				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 541165879296L) != 0)) ) {
 					((AtomCondContext)_localctx).op = (Token)_errHandler.recoverInline(this);
 				}
 				else {
@@ -1179,6 +1291,13 @@ public class ZeonParser extends Parser {
 				cond();
 				setState(157);
 				match(RPAREN);
+				}
+				break;
+			case 3:
+				enterOuterAlt(_localctx, 3);
+				{
+				setState(159);
+				expr(0);
 				}
 				break;
 			}
@@ -1212,6 +1331,11 @@ public class ZeonParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ZeonListener ) ((ZeonListener)listener).exitDecl(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ZeonVisitor ) return ((ZeonVisitor<? extends T>)visitor).visitDecl(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final DeclContext decl() throws RecognitionException {
@@ -1220,9 +1344,9 @@ public class ZeonParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(161);
-			type();
 			setState(162);
+			type();
+			setState(163);
 			match(ID);
 			}
 		}
@@ -1259,6 +1383,11 @@ public class ZeonParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ZeonListener ) ((ZeonListener)listener).exitAssign(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ZeonVisitor ) return ((ZeonVisitor<? extends T>)visitor).visitAssign(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final AssignContext assign() throws RecognitionException {
@@ -1268,21 +1397,21 @@ public class ZeonParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(165);
+			setState(166);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 120L) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 16504L) != 0)) {
 				{
-				setState(164);
+				setState(165);
 				type();
 				}
 			}
 
-			setState(167);
-			match(ID);
 			setState(168);
-			match(ASSIGN);
+			match(ID);
 			setState(169);
+			match(ASSIGN);
+			setState(170);
 			expr(0);
 			}
 		}
@@ -1317,6 +1446,11 @@ public class ZeonParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ZeonListener ) ((ZeonListener)listener).exitPrint(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ZeonVisitor ) return ((ZeonVisitor<? extends T>)visitor).visitPrint(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final PrintContext print() throws RecognitionException {
@@ -1325,13 +1459,13 @@ public class ZeonParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(171);
-			match(PRINT);
 			setState(172);
-			match(LPAREN);
+			match(PRINT);
 			setState(173);
-			expr(0);
+			match(LPAREN);
 			setState(174);
+			expr(0);
+			setState(175);
 			match(RPAREN);
 			}
 		}
@@ -1368,6 +1502,11 @@ public class ZeonParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ZeonListener ) ((ZeonListener)listener).exitRead(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ZeonVisitor ) return ((ZeonVisitor<? extends T>)visitor).visitRead(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ReadContext read() throws RecognitionException {
@@ -1377,25 +1516,25 @@ public class ZeonParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(177);
+			setState(178);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 120L) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 16504L) != 0)) {
 				{
-				setState(176);
+				setState(177);
 				type();
 				}
 			}
 
-			setState(179);
-			match(ID);
 			setState(180);
-			match(ASSIGN);
+			match(ID);
 			setState(181);
-			match(READ);
+			match(ASSIGN);
 			setState(182);
-			match(LPAREN);
+			match(READ);
 			setState(183);
+			match(LPAREN);
+			setState(184);
 			match(RPAREN);
 			}
 		}
@@ -1416,6 +1555,7 @@ public class ZeonParser extends Parser {
 		public TerminalNode FLOATTYPE() { return getToken(ZeonParser.FLOATTYPE, 0); }
 		public TerminalNode LONGINT() { return getToken(ZeonParser.LONGINT, 0); }
 		public TerminalNode DOUBLE() { return getToken(ZeonParser.DOUBLE, 0); }
+		public TerminalNode BOOLTYPE() { return getToken(ZeonParser.BOOLTYPE, 0); }
 		public TypeContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -1428,6 +1568,11 @@ public class ZeonParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ZeonListener ) ((ZeonListener)listener).exitType(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ZeonVisitor ) return ((ZeonVisitor<? extends T>)visitor).visitType(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final TypeContext type() throws RecognitionException {
@@ -1437,9 +1582,9 @@ public class ZeonParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(185);
+			setState(186);
 			_la = _input.LA(1);
-			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 120L) != 0)) ) {
+			if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & 16504L) != 0)) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -1492,6 +1637,11 @@ public class ZeonParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ZeonListener ) ((ZeonListener)listener).exitAddSub(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ZeonVisitor ) return ((ZeonVisitor<? extends T>)visitor).visitAddSub(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class ParensContext extends ExprContext {
@@ -1508,6 +1658,11 @@ public class ZeonParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ZeonListener ) ((ZeonListener)listener).exitParens(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ZeonVisitor ) return ((ZeonVisitor<? extends T>)visitor).visitParens(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
@@ -1527,6 +1682,11 @@ public class ZeonParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ZeonListener ) ((ZeonListener)listener).exitCallFunc(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ZeonVisitor ) return ((ZeonVisitor<? extends T>)visitor).visitCallFunc(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class RealContext extends ExprContext {
@@ -1539,6 +1699,29 @@ public class ZeonParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ZeonListener ) ((ZeonListener)listener).exitReal(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ZeonVisitor ) return ((ZeonVisitor<? extends T>)visitor).visitReal(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class FalseLitContext extends ExprContext {
+		public TerminalNode FALSE() { return getToken(ZeonParser.FALSE, 0); }
+		public FalseLitContext(ExprContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ZeonListener ) ((ZeonListener)listener).enterFalseLit(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ZeonListener ) ((ZeonListener)listener).exitFalseLit(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ZeonVisitor ) return ((ZeonVisitor<? extends T>)visitor).visitFalseLit(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
@@ -1556,6 +1739,29 @@ public class ZeonParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ZeonListener ) ((ZeonListener)listener).exitUnaryMinus(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ZeonVisitor ) return ((ZeonVisitor<? extends T>)visitor).visitUnaryMinus(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class TrueLitContext extends ExprContext {
+		public TerminalNode TRUE() { return getToken(ZeonParser.TRUE, 0); }
+		public TrueLitContext(ExprContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof ZeonListener ) ((ZeonListener)listener).enterTrueLit(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof ZeonListener ) ((ZeonListener)listener).exitTrueLit(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ZeonVisitor ) return ((ZeonVisitor<? extends T>)visitor).visitTrueLit(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class IdContext extends ExprContext {
@@ -1569,6 +1775,11 @@ public class ZeonParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ZeonListener ) ((ZeonListener)listener).exitId(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ZeonVisitor ) return ((ZeonVisitor<? extends T>)visitor).visitId(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 	@SuppressWarnings("CheckReturnValue")
 	public static class IntContext extends ExprContext {
@@ -1581,6 +1792,11 @@ public class ZeonParser extends Parser {
 		@Override
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ZeonListener ) ((ZeonListener)listener).exitInt(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ZeonVisitor ) return ((ZeonVisitor<? extends T>)visitor).visitInt(this);
+			else return visitor.visitChildren(this);
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
@@ -1603,6 +1819,11 @@ public class ZeonParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ZeonListener ) ((ZeonListener)listener).exitMultDiv(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ZeonVisitor ) return ((ZeonVisitor<? extends T>)visitor).visitMultDiv(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ExprContext expr() throws RecognitionException {
@@ -1621,7 +1842,7 @@ public class ZeonParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(203);
+			setState(206);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,14,_ctx) ) {
 			case 1:
@@ -1630,11 +1851,11 @@ public class ZeonParser extends Parser {
 				_ctx = _localctx;
 				_prevctx = _localctx;
 
-				setState(188);
-				match(LPAREN);
 				setState(189);
-				expr(0);
+				match(LPAREN);
 				setState(190);
+				expr(0);
+				setState(191);
 				match(RPAREN);
 				}
 				break;
@@ -1643,21 +1864,21 @@ public class ZeonParser extends Parser {
 				_localctx = new CallFuncContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(192);
-				match(ID);
 				setState(193);
+				match(ID);
+				setState(194);
 				match(LPAREN);
-				setState(195);
+				setState(196);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 33845248L) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & 1083146240L) != 0)) {
 					{
-					setState(194);
+					setState(195);
 					args();
 					}
 				}
 
-				setState(197);
+				setState(198);
 				match(RPAREN);
 				}
 				break;
@@ -1666,10 +1887,10 @@ public class ZeonParser extends Parser {
 				_localctx = new UnaryMinusContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(198);
-				match(SUB);
 				setState(199);
-				expr(6);
+				match(SUB);
+				setState(200);
+				expr(8);
 				}
 				break;
 			case 4:
@@ -1677,7 +1898,7 @@ public class ZeonParser extends Parser {
 				_localctx = new RealContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(200);
+				setState(201);
 				match(REAL);
 				}
 				break;
@@ -1686,7 +1907,7 @@ public class ZeonParser extends Parser {
 				_localctx = new IntContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(201);
+				setState(202);
 				match(INT);
 				}
 				break;
@@ -1695,13 +1916,31 @@ public class ZeonParser extends Parser {
 				_localctx = new IdContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(202);
+				setState(203);
 				match(ID);
+				}
+				break;
+			case 7:
+				{
+				_localctx = new TrueLitContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				setState(204);
+				match(TRUE);
+				}
+				break;
+			case 8:
+				{
+				_localctx = new FalseLitContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				setState(205);
+				match(FALSE);
 				}
 				break;
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(213);
+			setState(216);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,16,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
@@ -1709,16 +1948,16 @@ public class ZeonParser extends Parser {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					setState(211);
+					setState(214);
 					_errHandler.sync(this);
 					switch ( getInterpreter().adaptivePredict(_input,15,_ctx) ) {
 					case 1:
 						{
 						_localctx = new MultDivContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(205);
-						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
-						setState(206);
+						setState(208);
+						if (!(precpred(_ctx, 7))) throw new FailedPredicateException(this, "precpred(_ctx, 7)");
+						setState(209);
 						((MultDivContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !(_la==MULT || _la==DIV) ) {
@@ -1729,17 +1968,17 @@ public class ZeonParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(207);
-						expr(6);
+						setState(210);
+						expr(8);
 						}
 						break;
 					case 2:
 						{
 						_localctx = new AddSubContext(new ExprContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
-						setState(208);
-						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
-						setState(209);
+						setState(211);
+						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
+						setState(212);
 						((AddSubContext)_localctx).op = _input.LT(1);
 						_la = _input.LA(1);
 						if ( !(_la==ADD || _la==SUB) ) {
@@ -1750,14 +1989,14 @@ public class ZeonParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(210);
-						expr(5);
+						setState(213);
+						expr(7);
 						}
 						break;
 					}
 					} 
 				}
-				setState(215);
+				setState(218);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,16,_ctx);
 			}
@@ -1798,6 +2037,11 @@ public class ZeonParser extends Parser {
 		public void exitRule(ParseTreeListener listener) {
 			if ( listener instanceof ZeonListener ) ((ZeonListener)listener).exitArgs(this);
 		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof ZeonVisitor ) return ((ZeonVisitor<? extends T>)visitor).visitArgs(this);
+			else return visitor.visitChildren(this);
+		}
 	}
 
 	public final ArgsContext args() throws RecognitionException {
@@ -1807,21 +2051,21 @@ public class ZeonParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(216);
+			setState(219);
 			expr(0);
-			setState(221);
+			setState(224);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==COMMA) {
 				{
 				{
-				setState(217);
+				setState(220);
 				match(COMMA);
-				setState(218);
+				setState(221);
 				expr(0);
 				}
 				}
-				setState(223);
+				setState(226);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -1848,15 +2092,15 @@ public class ZeonParser extends Parser {
 	private boolean expr_sempred(ExprContext _localctx, int predIndex) {
 		switch (predIndex) {
 		case 0:
-			return precpred(_ctx, 5);
+			return precpred(_ctx, 7);
 		case 1:
-			return precpred(_ctx, 4);
+			return precpred(_ctx, 6);
 		}
 		return true;
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001%\u00e1\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
+		"\u0004\u0001(\u00e4\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
 		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002"+
 		"\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007\u0002"+
 		"\b\u0007\b\u0002\t\u0007\t\u0002\n\u0007\n\u0002\u000b\u0007\u000b\u0002"+
@@ -1879,120 +2123,123 @@ public class ZeonParser extends Parser {
 		"\n\u0001\n\u0001\u000b\u0001\u000b\u0001\f\u0001\f\u0001\f\u0005\f\u008b"+
 		"\b\f\n\f\f\f\u008e\t\f\u0001\r\u0001\r\u0001\r\u0005\r\u0093\b\r\n\r\f"+
 		"\r\u0096\t\r\u0001\u000e\u0001\u000e\u0001\u000e\u0001\u000e\u0001\u000e"+
-		"\u0001\u000e\u0001\u000e\u0001\u000e\u0003\u000e\u00a0\b\u000e\u0001\u000f"+
-		"\u0001\u000f\u0001\u000f\u0001\u0010\u0003\u0010\u00a6\b\u0010\u0001\u0010"+
-		"\u0001\u0010\u0001\u0010\u0001\u0010\u0001\u0011\u0001\u0011\u0001\u0011"+
-		"\u0001\u0011\u0001\u0011\u0001\u0012\u0003\u0012\u00b2\b\u0012\u0001\u0012"+
-		"\u0001\u0012\u0001\u0012\u0001\u0012\u0001\u0012\u0001\u0012\u0001\u0013"+
-		"\u0001\u0013\u0001\u0014\u0001\u0014\u0001\u0014\u0001\u0014\u0001\u0014"+
-		"\u0001\u0014\u0001\u0014\u0001\u0014\u0003\u0014\u00c4\b\u0014\u0001\u0014"+
-		"\u0001\u0014\u0001\u0014\u0001\u0014\u0001\u0014\u0001\u0014\u0003\u0014"+
-		"\u00cc\b\u0014\u0001\u0014\u0001\u0014\u0001\u0014\u0001\u0014\u0001\u0014"+
-		"\u0001\u0014\u0005\u0014\u00d4\b\u0014\n\u0014\f\u0014\u00d7\t\u0014\u0001"+
-		"\u0015\u0001\u0015\u0001\u0015\u0005\u0015\u00dc\b\u0015\n\u0015\f\u0015"+
-		"\u00df\t\u0015\u0001\u0015\u0000\u0001(\u0016\u0000\u0002\u0004\u0006"+
-		"\b\n\f\u000e\u0010\u0012\u0014\u0016\u0018\u001a\u001c\u001e \"$&(*\u0000"+
-		"\u0004\u0001\u0000\u001c!\u0001\u0000\u0003\u0006\u0001\u0000\u001a\u001b"+
-		"\u0001\u0000\u0018\u0019\u00e6\u00000\u0001\u0000\u0000\u0000\u00028\u0001"+
-		"\u0000\u0000\u0000\u0004P\u0001\u0000\u0000\u0000\u0006R\u0001\u0000\u0000"+
-		"\u0000\b]\u0001\u0000\u0000\u0000\ne\u0001\u0000\u0000\u0000\fj\u0001"+
-		"\u0000\u0000\u0000\u000el\u0001\u0000\u0000\u0000\u0010p\u0001\u0000\u0000"+
-		"\u0000\u0012x\u0001\u0000\u0000\u0000\u0014}\u0001\u0000\u0000\u0000\u0016"+
-		"\u0085\u0001\u0000\u0000\u0000\u0018\u0087\u0001\u0000\u0000\u0000\u001a"+
-		"\u008f\u0001\u0000\u0000\u0000\u001c\u009f\u0001\u0000\u0000\u0000\u001e"+
-		"\u00a1\u0001\u0000\u0000\u0000 \u00a5\u0001\u0000\u0000\u0000\"\u00ab"+
-		"\u0001\u0000\u0000\u0000$\u00b1\u0001\u0000\u0000\u0000&\u00b9\u0001\u0000"+
-		"\u0000\u0000(\u00cb\u0001\u0000\u0000\u0000*\u00d8\u0001\u0000\u0000\u0000"+
-		",/\u0003\u0006\u0003\u0000-/\u0003\u0004\u0002\u0000.,\u0001\u0000\u0000"+
-		"\u0000.-\u0001\u0000\u0000\u0000/2\u0001\u0000\u0000\u00000.\u0001\u0000"+
-		"\u0000\u000001\u0001\u0000\u0000\u000013\u0001\u0000\u0000\u000020\u0001"+
-		"\u0000\u0000\u000034\u0005\u0000\u0000\u00014\u0001\u0001\u0000\u0000"+
-		"\u000057\u0003\u0004\u0002\u000065\u0001\u0000\u0000\u00007:\u0001\u0000"+
-		"\u0000\u000086\u0001\u0000\u0000\u000089\u0001\u0000\u0000\u00009\u0003"+
-		"\u0001\u0000\u0000\u0000:8\u0001\u0000\u0000\u0000;<\u0003\u001e\u000f"+
-		"\u0000<=\u0005\u000f\u0000\u0000=Q\u0001\u0000\u0000\u0000>?\u0003 \u0010"+
-		"\u0000?@\u0005\u000f\u0000\u0000@Q\u0001\u0000\u0000\u0000AB\u0003\"\u0011"+
-		"\u0000BC\u0005\u000f\u0000\u0000CQ\u0001\u0000\u0000\u0000DE\u0003$\u0012"+
-		"\u0000EF\u0005\u000f\u0000\u0000FQ\u0001\u0000\u0000\u0000GH\u0003(\u0014"+
-		"\u0000HI\u0005\u000f\u0000\u0000IQ\u0001\u0000\u0000\u0000JQ\u0003\u000e"+
-		"\u0007\u0000KQ\u0003\u0014\n\u0000LM\u0005\u000b\u0000\u0000MN\u0003("+
-		"\u0014\u0000NO\u0005\u000f\u0000\u0000OQ\u0001\u0000\u0000\u0000P;\u0001"+
-		"\u0000\u0000\u0000P>\u0001\u0000\u0000\u0000PA\u0001\u0000\u0000\u0000"+
-		"PD\u0001\u0000\u0000\u0000PG\u0001\u0000\u0000\u0000PJ\u0001\u0000\u0000"+
-		"\u0000PK\u0001\u0000\u0000\u0000PL\u0001\u0000\u0000\u0000Q\u0005\u0001"+
-		"\u0000\u0000\u0000RS\u0003\f\u0006\u0000ST\u0005\u000e\u0000\u0000TV\u0005"+
-		"\u0012\u0000\u0000UW\u0003\b\u0004\u0000VU\u0001\u0000\u0000\u0000VW\u0001"+
-		"\u0000\u0000\u0000WX\u0001\u0000\u0000\u0000XY\u0005\u0013\u0000\u0000"+
-		"YZ\u0005\u0014\u0000\u0000Z[\u0003\u0002\u0001\u0000[\\\u0005\u0015\u0000"+
-		"\u0000\\\u0007\u0001\u0000\u0000\u0000]b\u0003\n\u0005\u0000^_\u0005\u0010"+
-		"\u0000\u0000_a\u0003\n\u0005\u0000`^\u0001\u0000\u0000\u0000ad\u0001\u0000"+
-		"\u0000\u0000b`\u0001\u0000\u0000\u0000bc\u0001\u0000\u0000\u0000c\t\u0001"+
-		"\u0000\u0000\u0000db\u0001\u0000\u0000\u0000ef\u0003&\u0013\u0000fg\u0005"+
-		"\u000e\u0000\u0000g\u000b\u0001\u0000\u0000\u0000hk\u0003&\u0013\u0000"+
-		"ik\u0005\u0007\u0000\u0000jh\u0001\u0000\u0000\u0000ji\u0001\u0000\u0000"+
-		"\u0000k\r\u0001\u0000\u0000\u0000ln\u0003\u0010\b\u0000mo\u0003\u0012"+
-		"\t\u0000nm\u0001\u0000\u0000\u0000no\u0001\u0000\u0000\u0000o\u000f\u0001"+
-		"\u0000\u0000\u0000pq\u0005\b\u0000\u0000qr\u0005\u0012\u0000\u0000rs\u0003"+
-		"\u0016\u000b\u0000st\u0005\u0013\u0000\u0000tu\u0005\u0014\u0000\u0000"+
-		"uv\u0003\u0002\u0001\u0000vw\u0005\u0015\u0000\u0000w\u0011\u0001\u0000"+
-		"\u0000\u0000xy\u0005\t\u0000\u0000yz\u0005\u0014\u0000\u0000z{\u0003\u0002"+
-		"\u0001\u0000{|\u0005\u0015\u0000\u0000|\u0013\u0001\u0000\u0000\u0000"+
-		"}~\u0005\n\u0000\u0000~\u007f\u0005\u0012\u0000\u0000\u007f\u0080\u0003"+
-		"\u0016\u000b\u0000\u0080\u0081\u0005\u0013\u0000\u0000\u0081\u0082\u0005"+
-		"\u0014\u0000\u0000\u0082\u0083\u0003\u0002\u0001\u0000\u0083\u0084\u0005"+
-		"\u0015\u0000\u0000\u0084\u0015\u0001\u0000\u0000\u0000\u0085\u0086\u0003"+
-		"\u0018\f\u0000\u0086\u0017\u0001\u0000\u0000\u0000\u0087\u008c\u0003\u001a"+
-		"\r\u0000\u0088\u0089\u0005%\u0000\u0000\u0089\u008b\u0003\u001a\r\u0000"+
-		"\u008a\u0088\u0001\u0000\u0000\u0000\u008b\u008e\u0001\u0000\u0000\u0000"+
-		"\u008c\u008a\u0001\u0000\u0000\u0000\u008c\u008d\u0001\u0000\u0000\u0000"+
-		"\u008d\u0019\u0001\u0000\u0000\u0000\u008e\u008c\u0001\u0000\u0000\u0000"+
-		"\u008f\u0094\u0003\u001c\u000e\u0000\u0090\u0091\u0005$\u0000\u0000\u0091"+
-		"\u0093\u0003\u001c\u000e\u0000\u0092\u0090\u0001\u0000\u0000\u0000\u0093"+
-		"\u0096\u0001\u0000\u0000\u0000\u0094\u0092\u0001\u0000\u0000\u0000\u0094"+
-		"\u0095\u0001\u0000\u0000\u0000\u0095\u001b\u0001\u0000\u0000\u0000\u0096"+
-		"\u0094\u0001\u0000\u0000\u0000\u0097\u0098\u0003(\u0014\u0000\u0098\u0099"+
-		"\u0007\u0000\u0000\u0000\u0099\u009a\u0003(\u0014\u0000\u009a\u00a0\u0001"+
-		"\u0000\u0000\u0000\u009b\u009c\u0005\u0012\u0000\u0000\u009c\u009d\u0003"+
-		"\u0016\u000b\u0000\u009d\u009e\u0005\u0013\u0000\u0000\u009e\u00a0\u0001"+
-		"\u0000\u0000\u0000\u009f\u0097\u0001\u0000\u0000\u0000\u009f\u009b\u0001"+
-		"\u0000\u0000\u0000\u00a0\u001d\u0001\u0000\u0000\u0000\u00a1\u00a2\u0003"+
-		"&\u0013\u0000\u00a2\u00a3\u0005\u000e\u0000\u0000\u00a3\u001f\u0001\u0000"+
-		"\u0000\u0000\u00a4\u00a6\u0003&\u0013\u0000\u00a5\u00a4\u0001\u0000\u0000"+
-		"\u0000\u00a5\u00a6\u0001\u0000\u0000\u0000\u00a6\u00a7\u0001\u0000\u0000"+
-		"\u0000\u00a7\u00a8\u0005\u000e\u0000\u0000\u00a8\u00a9\u0005\u0011\u0000"+
-		"\u0000\u00a9\u00aa\u0003(\u0014\u0000\u00aa!\u0001\u0000\u0000\u0000\u00ab"+
-		"\u00ac\u0005\u0002\u0000\u0000\u00ac\u00ad\u0005\u0012\u0000\u0000\u00ad"+
-		"\u00ae\u0003(\u0014\u0000\u00ae\u00af\u0005\u0013\u0000\u0000\u00af#\u0001"+
-		"\u0000\u0000\u0000\u00b0\u00b2\u0003&\u0013\u0000\u00b1\u00b0\u0001\u0000"+
-		"\u0000\u0000\u00b1\u00b2\u0001\u0000\u0000\u0000\u00b2\u00b3\u0001\u0000"+
-		"\u0000\u0000\u00b3\u00b4\u0005\u000e\u0000\u0000\u00b4\u00b5\u0005\u0011"+
-		"\u0000\u0000\u00b5\u00b6\u0005\u0001\u0000\u0000\u00b6\u00b7\u0005\u0012"+
-		"\u0000\u0000\u00b7\u00b8\u0005\u0013\u0000\u0000\u00b8%\u0001\u0000\u0000"+
-		"\u0000\u00b9\u00ba\u0007\u0001\u0000\u0000\u00ba\'\u0001\u0000\u0000\u0000"+
-		"\u00bb\u00bc\u0006\u0014\uffff\uffff\u0000\u00bc\u00bd\u0005\u0012\u0000"+
-		"\u0000\u00bd\u00be\u0003(\u0014\u0000\u00be\u00bf\u0005\u0013\u0000\u0000"+
-		"\u00bf\u00cc\u0001\u0000\u0000\u0000\u00c0\u00c1\u0005\u000e\u0000\u0000"+
-		"\u00c1\u00c3\u0005\u0012\u0000\u0000\u00c2\u00c4\u0003*\u0015\u0000\u00c3"+
-		"\u00c2\u0001\u0000\u0000\u0000\u00c3\u00c4\u0001\u0000\u0000\u0000\u00c4"+
-		"\u00c5\u0001\u0000\u0000\u0000\u00c5\u00cc\u0005\u0013\u0000\u0000\u00c6"+
-		"\u00c7\u0005\u0019\u0000\u0000\u00c7\u00cc\u0003(\u0014\u0006\u00c8\u00cc"+
-		"\u0005\f\u0000\u0000\u00c9\u00cc\u0005\r\u0000\u0000\u00ca\u00cc\u0005"+
-		"\u000e\u0000\u0000\u00cb\u00bb\u0001\u0000\u0000\u0000\u00cb\u00c0\u0001"+
-		"\u0000\u0000\u0000\u00cb\u00c6\u0001\u0000\u0000\u0000\u00cb\u00c8\u0001"+
-		"\u0000\u0000\u0000\u00cb\u00c9\u0001\u0000\u0000\u0000\u00cb\u00ca\u0001"+
-		"\u0000\u0000\u0000\u00cc\u00d5\u0001\u0000\u0000\u0000\u00cd\u00ce\n\u0005"+
-		"\u0000\u0000\u00ce\u00cf\u0007\u0002\u0000\u0000\u00cf\u00d4\u0003(\u0014"+
-		"\u0006\u00d0\u00d1\n\u0004\u0000\u0000\u00d1\u00d2\u0007\u0003\u0000\u0000"+
-		"\u00d2\u00d4\u0003(\u0014\u0005\u00d3\u00cd\u0001\u0000\u0000\u0000\u00d3"+
-		"\u00d0\u0001\u0000\u0000\u0000\u00d4\u00d7\u0001\u0000\u0000\u0000\u00d5"+
-		"\u00d3\u0001\u0000\u0000\u0000\u00d5\u00d6\u0001\u0000\u0000\u0000\u00d6"+
-		")\u0001\u0000\u0000\u0000\u00d7\u00d5\u0001\u0000\u0000\u0000\u00d8\u00dd"+
-		"\u0003(\u0014\u0000\u00d9\u00da\u0005\u0010\u0000\u0000\u00da\u00dc\u0003"+
-		"(\u0014\u0000\u00db\u00d9\u0001\u0000\u0000\u0000\u00dc\u00df\u0001\u0000"+
-		"\u0000\u0000\u00dd\u00db\u0001\u0000\u0000\u0000\u00dd\u00de\u0001\u0000"+
-		"\u0000\u0000\u00de+\u0001\u0000\u0000\u0000\u00df\u00dd\u0001\u0000\u0000"+
-		"\u0000\u0012.08PVbjn\u008c\u0094\u009f\u00a5\u00b1\u00c3\u00cb\u00d3\u00d5"+
-		"\u00dd";
+		"\u0001\u000e\u0001\u000e\u0001\u000e\u0001\u000e\u0003\u000e\u00a1\b\u000e"+
+		"\u0001\u000f\u0001\u000f\u0001\u000f\u0001\u0010\u0003\u0010\u00a7\b\u0010"+
+		"\u0001\u0010\u0001\u0010\u0001\u0010\u0001\u0010\u0001\u0011\u0001\u0011"+
+		"\u0001\u0011\u0001\u0011\u0001\u0011\u0001\u0012\u0003\u0012\u00b3\b\u0012"+
+		"\u0001\u0012\u0001\u0012\u0001\u0012\u0001\u0012\u0001\u0012\u0001\u0012"+
+		"\u0001\u0013\u0001\u0013\u0001\u0014\u0001\u0014\u0001\u0014\u0001\u0014"+
+		"\u0001\u0014\u0001\u0014\u0001\u0014\u0001\u0014\u0003\u0014\u00c5\b\u0014"+
+		"\u0001\u0014\u0001\u0014\u0001\u0014\u0001\u0014\u0001\u0014\u0001\u0014"+
+		"\u0001\u0014\u0001\u0014\u0003\u0014\u00cf\b\u0014\u0001\u0014\u0001\u0014"+
+		"\u0001\u0014\u0001\u0014\u0001\u0014\u0001\u0014\u0005\u0014\u00d7\b\u0014"+
+		"\n\u0014\f\u0014\u00da\t\u0014\u0001\u0015\u0001\u0015\u0001\u0015\u0005"+
+		"\u0015\u00df\b\u0015\n\u0015\f\u0015\u00e2\t\u0015\u0001\u0015\u0000\u0001"+
+		"(\u0016\u0000\u0002\u0004\u0006\b\n\f\u000e\u0010\u0012\u0014\u0016\u0018"+
+		"\u001a\u001c\u001e \"$&(*\u0000\u0004\u0001\u0000!&\u0002\u0000\u0003"+
+		"\u0006\u000e\u000e\u0001\u0000\u001f \u0001\u0000\u001d\u001e\u00ec\u0000"+
+		"0\u0001\u0000\u0000\u0000\u00028\u0001\u0000\u0000\u0000\u0004P\u0001"+
+		"\u0000\u0000\u0000\u0006R\u0001\u0000\u0000\u0000\b]\u0001\u0000\u0000"+
+		"\u0000\ne\u0001\u0000\u0000\u0000\fj\u0001\u0000\u0000\u0000\u000el\u0001"+
+		"\u0000\u0000\u0000\u0010p\u0001\u0000\u0000\u0000\u0012x\u0001\u0000\u0000"+
+		"\u0000\u0014}\u0001\u0000\u0000\u0000\u0016\u0085\u0001\u0000\u0000\u0000"+
+		"\u0018\u0087\u0001\u0000\u0000\u0000\u001a\u008f\u0001\u0000\u0000\u0000"+
+		"\u001c\u00a0\u0001\u0000\u0000\u0000\u001e\u00a2\u0001\u0000\u0000\u0000"+
+		" \u00a6\u0001\u0000\u0000\u0000\"\u00ac\u0001\u0000\u0000\u0000$\u00b2"+
+		"\u0001\u0000\u0000\u0000&\u00ba\u0001\u0000\u0000\u0000(\u00ce\u0001\u0000"+
+		"\u0000\u0000*\u00db\u0001\u0000\u0000\u0000,/\u0003\u0006\u0003\u0000"+
+		"-/\u0003\u0004\u0002\u0000.,\u0001\u0000\u0000\u0000.-\u0001\u0000\u0000"+
+		"\u0000/2\u0001\u0000\u0000\u00000.\u0001\u0000\u0000\u000001\u0001\u0000"+
+		"\u0000\u000013\u0001\u0000\u0000\u000020\u0001\u0000\u0000\u000034\u0005"+
+		"\u0000\u0000\u00014\u0001\u0001\u0000\u0000\u000057\u0003\u0004\u0002"+
+		"\u000065\u0001\u0000\u0000\u00007:\u0001\u0000\u0000\u000086\u0001\u0000"+
+		"\u0000\u000089\u0001\u0000\u0000\u00009\u0003\u0001\u0000\u0000\u0000"+
+		":8\u0001\u0000\u0000\u0000;<\u0003\u001e\u000f\u0000<=\u0005\u0014\u0000"+
+		"\u0000=Q\u0001\u0000\u0000\u0000>?\u0003 \u0010\u0000?@\u0005\u0014\u0000"+
+		"\u0000@Q\u0001\u0000\u0000\u0000AB\u0003\"\u0011\u0000BC\u0005\u0014\u0000"+
+		"\u0000CQ\u0001\u0000\u0000\u0000DE\u0003$\u0012\u0000EF\u0005\u0014\u0000"+
+		"\u0000FQ\u0001\u0000\u0000\u0000GH\u0003(\u0014\u0000HI\u0005\u0014\u0000"+
+		"\u0000IQ\u0001\u0000\u0000\u0000JQ\u0003\u000e\u0007\u0000KQ\u0003\u0014"+
+		"\n\u0000LM\u0005\u000b\u0000\u0000MN\u0003(\u0014\u0000NO\u0005\u0014"+
+		"\u0000\u0000OQ\u0001\u0000\u0000\u0000P;\u0001\u0000\u0000\u0000P>\u0001"+
+		"\u0000\u0000\u0000PA\u0001\u0000\u0000\u0000PD\u0001\u0000\u0000\u0000"+
+		"PG\u0001\u0000\u0000\u0000PJ\u0001\u0000\u0000\u0000PK\u0001\u0000\u0000"+
+		"\u0000PL\u0001\u0000\u0000\u0000Q\u0005\u0001\u0000\u0000\u0000RS\u0003"+
+		"\f\u0006\u0000ST\u0005\u0013\u0000\u0000TV\u0005\u0017\u0000\u0000UW\u0003"+
+		"\b\u0004\u0000VU\u0001\u0000\u0000\u0000VW\u0001\u0000\u0000\u0000WX\u0001"+
+		"\u0000\u0000\u0000XY\u0005\u0018\u0000\u0000YZ\u0005\u0019\u0000\u0000"+
+		"Z[\u0003\u0002\u0001\u0000[\\\u0005\u001a\u0000\u0000\\\u0007\u0001\u0000"+
+		"\u0000\u0000]b\u0003\n\u0005\u0000^_\u0005\u0015\u0000\u0000_a\u0003\n"+
+		"\u0005\u0000`^\u0001\u0000\u0000\u0000ad\u0001\u0000\u0000\u0000b`\u0001"+
+		"\u0000\u0000\u0000bc\u0001\u0000\u0000\u0000c\t\u0001\u0000\u0000\u0000"+
+		"db\u0001\u0000\u0000\u0000ef\u0003&\u0013\u0000fg\u0005\u0013\u0000\u0000"+
+		"g\u000b\u0001\u0000\u0000\u0000hk\u0003&\u0013\u0000ik\u0005\u0007\u0000"+
+		"\u0000jh\u0001\u0000\u0000\u0000ji\u0001\u0000\u0000\u0000k\r\u0001\u0000"+
+		"\u0000\u0000ln\u0003\u0010\b\u0000mo\u0003\u0012\t\u0000nm\u0001\u0000"+
+		"\u0000\u0000no\u0001\u0000\u0000\u0000o\u000f\u0001\u0000\u0000\u0000"+
+		"pq\u0005\b\u0000\u0000qr\u0005\u0017\u0000\u0000rs\u0003\u0016\u000b\u0000"+
+		"st\u0005\u0018\u0000\u0000tu\u0005\u0019\u0000\u0000uv\u0003\u0002\u0001"+
+		"\u0000vw\u0005\u001a\u0000\u0000w\u0011\u0001\u0000\u0000\u0000xy\u0005"+
+		"\t\u0000\u0000yz\u0005\u0019\u0000\u0000z{\u0003\u0002\u0001\u0000{|\u0005"+
+		"\u001a\u0000\u0000|\u0013\u0001\u0000\u0000\u0000}~\u0005\n\u0000\u0000"+
+		"~\u007f\u0005\u0017\u0000\u0000\u007f\u0080\u0003\u0016\u000b\u0000\u0080"+
+		"\u0081\u0005\u0018\u0000\u0000\u0081\u0082\u0005\u0019\u0000\u0000\u0082"+
+		"\u0083\u0003\u0002\u0001\u0000\u0083\u0084\u0005\u001a\u0000\u0000\u0084"+
+		"\u0015\u0001\u0000\u0000\u0000\u0085\u0086\u0003\u0018\f\u0000\u0086\u0017"+
+		"\u0001\u0000\u0000\u0000\u0087\u008c\u0003\u001a\r\u0000\u0088\u0089\u0005"+
+		"\r\u0000\u0000\u0089\u008b\u0003\u001a\r\u0000\u008a\u0088\u0001\u0000"+
+		"\u0000\u0000\u008b\u008e\u0001\u0000\u0000\u0000\u008c\u008a\u0001\u0000"+
+		"\u0000\u0000\u008c\u008d\u0001\u0000\u0000\u0000\u008d\u0019\u0001\u0000"+
+		"\u0000\u0000\u008e\u008c\u0001\u0000\u0000\u0000\u008f\u0094\u0003\u001c"+
+		"\u000e\u0000\u0090\u0091\u0005\f\u0000\u0000\u0091\u0093\u0003\u001c\u000e"+
+		"\u0000\u0092\u0090\u0001\u0000\u0000\u0000\u0093\u0096\u0001\u0000\u0000"+
+		"\u0000\u0094\u0092\u0001\u0000\u0000\u0000\u0094\u0095\u0001\u0000\u0000"+
+		"\u0000\u0095\u001b\u0001\u0000\u0000\u0000\u0096\u0094\u0001\u0000\u0000"+
+		"\u0000\u0097\u0098\u0003(\u0014\u0000\u0098\u0099\u0007\u0000\u0000\u0000"+
+		"\u0099\u009a\u0003(\u0014\u0000\u009a\u00a1\u0001\u0000\u0000\u0000\u009b"+
+		"\u009c\u0005\u0017\u0000\u0000\u009c\u009d\u0003\u0016\u000b\u0000\u009d"+
+		"\u009e\u0005\u0018\u0000\u0000\u009e\u00a1\u0001\u0000\u0000\u0000\u009f"+
+		"\u00a1\u0003(\u0014\u0000\u00a0\u0097\u0001\u0000\u0000\u0000\u00a0\u009b"+
+		"\u0001\u0000\u0000\u0000\u00a0\u009f\u0001\u0000\u0000\u0000\u00a1\u001d"+
+		"\u0001\u0000\u0000\u0000\u00a2\u00a3\u0003&\u0013\u0000\u00a3\u00a4\u0005"+
+		"\u0013\u0000\u0000\u00a4\u001f\u0001\u0000\u0000\u0000\u00a5\u00a7\u0003"+
+		"&\u0013\u0000\u00a6\u00a5\u0001\u0000\u0000\u0000\u00a6\u00a7\u0001\u0000"+
+		"\u0000\u0000\u00a7\u00a8\u0001\u0000\u0000\u0000\u00a8\u00a9\u0005\u0013"+
+		"\u0000\u0000\u00a9\u00aa\u0005\u0016\u0000\u0000\u00aa\u00ab\u0003(\u0014"+
+		"\u0000\u00ab!\u0001\u0000\u0000\u0000\u00ac\u00ad\u0005\u0002\u0000\u0000"+
+		"\u00ad\u00ae\u0005\u0017\u0000\u0000\u00ae\u00af\u0003(\u0014\u0000\u00af"+
+		"\u00b0\u0005\u0018\u0000\u0000\u00b0#\u0001\u0000\u0000\u0000\u00b1\u00b3"+
+		"\u0003&\u0013\u0000\u00b2\u00b1\u0001\u0000\u0000\u0000\u00b2\u00b3\u0001"+
+		"\u0000\u0000\u0000\u00b3\u00b4\u0001\u0000\u0000\u0000\u00b4\u00b5\u0005"+
+		"\u0013\u0000\u0000\u00b5\u00b6\u0005\u0016\u0000\u0000\u00b6\u00b7\u0005"+
+		"\u0001\u0000\u0000\u00b7\u00b8\u0005\u0017\u0000\u0000\u00b8\u00b9\u0005"+
+		"\u0018\u0000\u0000\u00b9%\u0001\u0000\u0000\u0000\u00ba\u00bb\u0007\u0001"+
+		"\u0000\u0000\u00bb\'\u0001\u0000\u0000\u0000\u00bc\u00bd\u0006\u0014\uffff"+
+		"\uffff\u0000\u00bd\u00be\u0005\u0017\u0000\u0000\u00be\u00bf\u0003(\u0014"+
+		"\u0000\u00bf\u00c0\u0005\u0018\u0000\u0000\u00c0\u00cf\u0001\u0000\u0000"+
+		"\u0000\u00c1\u00c2\u0005\u0013\u0000\u0000\u00c2\u00c4\u0005\u0017\u0000"+
+		"\u0000\u00c3\u00c5\u0003*\u0015\u0000\u00c4\u00c3\u0001\u0000\u0000\u0000"+
+		"\u00c4\u00c5\u0001\u0000\u0000\u0000\u00c5\u00c6\u0001\u0000\u0000\u0000"+
+		"\u00c6\u00cf\u0005\u0018\u0000\u0000\u00c7\u00c8\u0005\u001e\u0000\u0000"+
+		"\u00c8\u00cf\u0003(\u0014\b\u00c9\u00cf\u0005\u0011\u0000\u0000\u00ca"+
+		"\u00cf\u0005\u0012\u0000\u0000\u00cb\u00cf\u0005\u0013\u0000\u0000\u00cc"+
+		"\u00cf\u0005\u000f\u0000\u0000\u00cd\u00cf\u0005\u0010\u0000\u0000\u00ce"+
+		"\u00bc\u0001\u0000\u0000\u0000\u00ce\u00c1\u0001\u0000\u0000\u0000\u00ce"+
+		"\u00c7\u0001\u0000\u0000\u0000\u00ce\u00c9\u0001\u0000\u0000\u0000\u00ce"+
+		"\u00ca\u0001\u0000\u0000\u0000\u00ce\u00cb\u0001\u0000\u0000\u0000\u00ce"+
+		"\u00cc\u0001\u0000\u0000\u0000\u00ce\u00cd\u0001\u0000\u0000\u0000\u00cf"+
+		"\u00d8\u0001\u0000\u0000\u0000\u00d0\u00d1\n\u0007\u0000\u0000\u00d1\u00d2"+
+		"\u0007\u0002\u0000\u0000\u00d2\u00d7\u0003(\u0014\b\u00d3\u00d4\n\u0006"+
+		"\u0000\u0000\u00d4\u00d5\u0007\u0003\u0000\u0000\u00d5\u00d7\u0003(\u0014"+
+		"\u0007\u00d6\u00d0\u0001\u0000\u0000\u0000\u00d6\u00d3\u0001\u0000\u0000"+
+		"\u0000\u00d7\u00da\u0001\u0000\u0000\u0000\u00d8\u00d6\u0001\u0000\u0000"+
+		"\u0000\u00d8\u00d9\u0001\u0000\u0000\u0000\u00d9)\u0001\u0000\u0000\u0000"+
+		"\u00da\u00d8\u0001\u0000\u0000\u0000\u00db\u00e0\u0003(\u0014\u0000\u00dc"+
+		"\u00dd\u0005\u0015\u0000\u0000\u00dd\u00df\u0003(\u0014\u0000\u00de\u00dc"+
+		"\u0001\u0000\u0000\u0000\u00df\u00e2\u0001\u0000\u0000\u0000\u00e0\u00de"+
+		"\u0001\u0000\u0000\u0000\u00e0\u00e1\u0001\u0000\u0000\u0000\u00e1+\u0001"+
+		"\u0000\u0000\u0000\u00e2\u00e0\u0001\u0000\u0000\u0000\u0012.08PVbjn\u008c"+
+		"\u0094\u00a0\u00a6\u00b2\u00c4\u00ce\u00d6\u00d8\u00e0";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

@@ -74,6 +74,12 @@ public class LLVMActions extends ZeonBaseListener {
             type = Type.DOUBLE;
         }
 
+        if (type == Type.BOOL) {
+            LLVMGenerator.zext(value, Type.BOOL, Type.INT);
+            value = "%" + (LLVMGenerator.tmp - 1);
+            type = Type.INT;
+        }
+
         LLVMGenerator.printf(value, type);
     }
 
@@ -237,7 +243,7 @@ public class LLVMActions extends ZeonBaseListener {
             LLVMGenerator.icmp(valueLeft, op, valueRight, targetType);
 
         valueStack.push("%" + (LLVMGenerator.tmp - 1));
-        typeStack.push(Type.INT);
+        typeStack.push(Type.BOOL);
     }
 
     @Override
@@ -260,7 +266,7 @@ public class LLVMActions extends ZeonBaseListener {
             LLVMGenerator.andBool(leftValue, rightValue);
 
             valueStack.push("%" + (LLVMGenerator.tmp - 1));
-            typeStack.push(Type.INT);
+            typeStack.push(Type.BOOL);
         }
     }
 
@@ -280,7 +286,7 @@ public class LLVMActions extends ZeonBaseListener {
             LLVMGenerator.orBool(leftValue, rightValue);
 
             valueStack.push("%" + (LLVMGenerator.tmp - 1));
-            typeStack.push(Type.INT);
+            typeStack.push(Type.BOOL);
         }
     }
 
@@ -301,6 +307,18 @@ public class LLVMActions extends ZeonBaseListener {
         }
 
         LLVMGenerator.endIf();
+    }
+
+    @Override
+    public void exitTrueLit(ZeonParser.TrueLitContext ctx) {
+        valueStack.push("1");
+        typeStack.push(Type.BOOL);
+    }
+
+    @Override
+    public void exitFalseLit(ZeonParser.FalseLitContext ctx) {
+        valueStack.push("0");
+        typeStack.push(Type.BOOL);
     }
 
     @Override
@@ -447,6 +465,7 @@ public class LLVMActions extends ZeonBaseListener {
             case "float" -> "float";
             case "double" -> "double";
             case "int" -> "i32";
+            case "bool" -> "i1";
             default -> antlrType;
         };
     }
@@ -523,6 +542,7 @@ public class LLVMActions extends ZeonBaseListener {
             case "double" -> Type.DOUBLE;
             case "int" -> Type.INT;
             case "void" -> Type.VOID;
+            case "bool" -> Type.BOOL;
             default -> null;
         };
     }
