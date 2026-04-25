@@ -401,6 +401,18 @@ public interface ZeonListener extends ParseTreeListener {
 	 */
 	void exitInt(ZeonParser.IntContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code StringLit}
+	 * labeled alternative in {@link ZeonParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void enterStringLit(ZeonParser.StringLitContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code StringLit}
+	 * labeled alternative in {@link ZeonParser#expr}.
+	 * @param ctx the parse tree
+	 */
+	void exitStringLit(ZeonParser.StringLitContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code MultDiv}
 	 * labeled alternative in {@link ZeonParser#expr}.
 	 * @param ctx the parse tree

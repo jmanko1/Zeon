@@ -45,7 +45,7 @@ assign	: (type)? ID ASSIGN expr ;
 print	: PRINT LPAREN expr RPAREN ;
 read	: (type)? ID ASSIGN READ LPAREN RPAREN ;
 
-type	: INTTYPE | FLOATTYPE | LONGINT | DOUBLE | BOOLTYPE;
+type	: INTTYPE | FLOATTYPE | LONGINT | DOUBLE | BOOLTYPE | STRINGTYPE;
 
 expr    : LPAREN expr RPAREN		        # Parens
         | ID LPAREN args? RPAREN          # CallFunc
@@ -53,6 +53,7 @@ expr    : LPAREN expr RPAREN		        # Parens
         | expr op=(MULT | DIV) expr	    # MultDiv
         | expr op=(ADD | SUB) expr	    # AddSub
         | REAL				            # Real
+        | STRING                          # StringLit
         | INT				            # Int
         | ID				            # Id
         | TRUE  #TrueLit
@@ -78,6 +79,9 @@ OR  : '||' ;
 BOOLTYPE : 'bool' ;
 TRUE     : 'true' ;
 FALSE    : 'false' ;
+
+STRINGTYPE : 'string';
+STRING     : '"' (~["\\] | '\\' .)* '"';
 
 REAL	: [0-9]+ '.' [0-9]+ ;
 INT	    : [0-9]+ ;

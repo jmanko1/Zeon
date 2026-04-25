@@ -243,6 +243,13 @@ public interface ZeonVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitInt(ZeonParser.IntContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code StringLit}
+	 * labeled alternative in {@link ZeonParser#expr}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStringLit(ZeonParser.StringLitContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code MultDiv}
 	 * labeled alternative in {@link ZeonParser#expr}.
 	 * @param ctx the parse tree

@@ -10,21 +10,41 @@ public class LLVMGenerator {
     static int main_tmp = 1;
     static int tmp = 1;
     static int br = 0;
+    static int str = 0;
 
     static Stack<Integer> brStack = new Stack<>();
 
     static void declare(String id, Boolean global, Type type) {
         String typeText = getTypeText(type);
 
+        if (type == Type.STRING) {
+            if (global) {
+                header_text += "@" + id + "_buf = global [256 x i8] zeroinitializer\n";
+                header_text += "@" + id + " = global i8* getelementptr inbounds ([256 x i8], [256 x i8]* @" + id + "_buf, i32 0, i32 0)\n";
+            } else {
+                buffer += "%" + id + "_buf = alloca [256 x i8]\n";
+                buffer += "%" + id + " = alloca i8*\n";
+                buffer += "%" + tmp + " = getelementptr inbounds [256 x i8], [256 x i8]* %" + id + "_buf, i32 0, i32 0\n";
+                buffer += "store i8* %" + tmp + ", i8** %" + id + "\n";
+                tmp++;
+            }
+            return;
+        }
+
         if (global)
-            header_text += "@"+id+" = global "+typeText+" "+getInitialValue(type)+"\n";
+            header_text += "@" + id + " = global " + typeText + " " + getInitialValue(type) + "\n";
         else
-            buffer += "%"+id+" = alloca "+typeText+"\n";
+            buffer += "%" + id + " = alloca " + typeText + "\n";
     }
 
     static void assign(String id, String value, Type type) {
         String typeText = getTypeText(type);
-        buffer += "store "+typeText+" "+value+", "+typeText+"* "+id+"\n";
+
+        if (type == Type.STRING) {
+            buffer += "store i8* " + value + ", i8** " + id + "\n";
+        } else {
+            buffer += "store " + typeText + " " + value + ", " + typeText + "* " + id + "\n";
+        }
     }
 
     static String getTypeText(Type type) {
@@ -34,13 +54,18 @@ public class LLVMGenerator {
             case DOUBLE -> "double";
             case INT -> "i32";
             case BOOL -> "i1";
+            case STRING -> "i8*";
             default -> "void";
         };
     }
 
     static String getInitialValue(Type type) {
-        if (type == Type.FLOAT || type == Type.DOUBLE) return "0.0";
-        return "0";
+        return switch (type) {
+            case FLOAT -> "0.0";
+            case DOUBLE -> "0.0";
+            case STRING -> "";
+            default -> "0";
+        };
     }
 
     static void close_main() {
@@ -48,22 +73,29 @@ public class LLVMGenerator {
     }
 
     static String generate() {
-        String text = "";
+            String text = "";
 
-        text += "declare i32 @printf(i8*, ...)\n";
-        text += "declare i32 @__isoc99_scanf(i8*, ...)\n";
-        text += "@strp = constant [4 x i8] c\"%d\\0A\\00\"\n";
-        text += "@strs = constant [3 x i8] c\"%d\\00\"\n";
-        text += "@strf = constant [4 x i8] c\"%f\\0A\\00\"\n";
-        text += "@strsf = constant [4 x i8] c\"%lf\\00\"\n";
-        text += "@strpl = constant [5 x i8] c\"%ld\\0A\\00\"\n";
-        text += header_text;
-        text += "define i32 @main() nounwind{\n";
-        text += main_text;
-        text += "ret i32 0 \n}\n";
+            text += "declare i32 @printf(i8*, ...)\n";
+            text += "declare i32 @__isoc99_scanf(i8*, ...)\n";
+            text += "declare i32 @strcmp(i8*, i8*)\n";
 
-        return text;
-    }
+            text += "@strp = constant [4 x i8] c\"%d\\0A\\00\"\n";
+            text += "@strs = constant [3 x i8] c\"%d\\00\"\n";
+            text += "@strf = constant [4 x i8] c\"%f\\0A\\00\"\n";
+            text += "@strsf = constant [4 x i8] c\"%lf\\00\"\n";
+            text += "@strpl = constant [5 x i8] c\"%ld\\0A\\00\"\n";
+
+            text += "@strprint = constant [4 x i8] c\"%s\\0A\\00\"\n";
+            text += "@strread = constant [7 x i8] c\" %[^\\0A]\\00\"\n";
+
+            text += header_text;
+
+            text += "define i32 @main() nounwind{\n";
+            text += main_text;
+            text += "ret i32 0 \n}\n";
+
+            return text;
+        }
 
     static void sext(String id, Type fromType, Type toType) {
         String fromTypeStr = getTypeText(fromType);
@@ -154,7 +186,13 @@ public class LLVMGenerator {
 
     static void load(String id, Type type) {
         String t = getTypeText(type);
-        buffer += "%" + tmp + " = load " + t + ", " + t + "* " + id + "\n";
+
+        if (type == Type.STRING) {
+            buffer += "%" + tmp + " = load i8*, i8** " + id + "\n";
+        } else {
+            buffer += "%" + tmp + " = load " + t + ", " + t + "* " + id + "\n";
+        }
+
         tmp++;
     }
 
@@ -169,6 +207,10 @@ public class LLVMGenerator {
                 format = "@strpl";
                 size = "[5 x i8]";
             }
+                case STRING -> {
+                format = "@strprint";
+                size = "[4 x i8]";
+            }
         }
 
         String t = getTypeText(type);
@@ -179,6 +221,17 @@ public class LLVMGenerator {
     }
 
     static void scanf(String id, Type type) {
+        if (type == Type.STRING) {
+            buffer += "%" + tmp + " = load i8*, i8** " + id + "\n";
+            String ptr = "%" + tmp;
+            tmp++;
+
+            buffer += "%" + tmp + " = call i32 (i8*, ...) @__isoc99_scanf(i8* getelementptr inbounds ";
+            buffer += "([3 x i8], [3 x i8]* @strread, i32 0, i32 0), i8* " + ptr + ")\n";
+            tmp++;
+            return;
+        }
+
         String format = "";
         String size = "";
 
@@ -331,6 +384,45 @@ public class LLVMGenerator {
 
     static void orBool(String left, String right) {
         buffer += "%" + tmp + " = or i1 " + left + ", " + right + "\n";
+        tmp++;
+    }
+
+    static String stringConstant(String raw) {
+        String content = raw.substring(1, raw.length() - 1);
+
+        content = content
+                .replace("\\", "\\5C")
+                .replace("\n", "\\0A")
+                .replace("\"", "\\22");
+
+        int len = content.length() + 1;
+        String name = "@.str" + str++;
+
+        header_text += name + " = private unnamed_addr constant [" + len + " x i8] c\"" + content + "\\00\"\n";
+
+        buffer += "%" + tmp + " = getelementptr inbounds [" + len + " x i8], [" + len + " x i8]* " +
+                name + ", i32 0, i32 0\n";
+
+        tmp++;
+        return "%" + (tmp - 1);
+    }
+
+    static void strcmp(String left, String right, String op) {
+        buffer += "%" + tmp + " = call i32 @strcmp(i8* " + left + ", i8* " + right + ")\n";
+        String cmpResult = "%" + tmp;
+        tmp++;
+
+        String cond = switch (op) {
+            case "!=" -> "ne";
+            case "==" -> "eq";
+            case ">" -> "sgt";
+            case "<" -> "slt";
+            case ">=" -> "sge";
+            case "<=" -> "sle";
+            default -> "eq";
+        };
+
+        buffer += "%" + tmp + " = icmp " + cond + " i32 " + cmpResult + ", 0\n";
         tmp++;
     }
 }

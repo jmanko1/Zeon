@@ -1,7 +1,10 @@
-double x = -1.0;
+string name;
+name = read();
 
-if (x > 0) {
-    print(1);
+print(name);
+
+if (name == "ala") {
+    print("hello ala");
 } else {
-    print(0);
+    print("unknown");
 }

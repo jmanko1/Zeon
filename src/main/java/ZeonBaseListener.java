@@ -448,6 +448,18 @@ public class ZeonBaseListener implements ZeonListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterStringLit(ZeonParser.StringLitContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStringLit(ZeonParser.StringLitContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterMultDiv(ZeonParser.MultDivContext ctx) { }
 	/**
 	 * {@inheritDoc}

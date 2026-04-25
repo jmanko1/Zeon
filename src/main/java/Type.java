@@ -4,5 +4,6 @@ public enum Type {
     LONG_INT,
     DOUBLE,
     VOID,
-    BOOL
+    BOOL,
+    STRING
 }

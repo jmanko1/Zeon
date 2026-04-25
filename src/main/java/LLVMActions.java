@@ -266,6 +266,19 @@ public class LLVMActions extends ZeonBaseListener {
         String valueLeft = valueStack.pop();
 
         Type targetType = getStrongerType(typeLeft, typeRight);
+
+        if (typeLeft == Type.STRING || typeRight == Type.STRING) {
+            if (typeLeft != Type.STRING || typeRight != Type.STRING) {
+                error(ctx, "Cannot compare string with non-string.");
+            }
+
+            LLVMGenerator.strcmp(valueLeft, valueRight, op);
+
+            valueStack.push("%" + (LLVMGenerator.tmp - 1));
+            typeStack.push(Type.BOOL);
+            return;
+        }
+
         valueLeft = ensureType(valueLeft, typeLeft, targetType);
         valueRight = ensureType(valueRight, typeRight, targetType);
 
@@ -488,6 +501,7 @@ public class LLVMActions extends ZeonBaseListener {
             case "double" -> "double";
             case "int" -> "i32";
             case "bool" -> "i1";
+            case "string" -> "i8*";
             default -> antlrType;
         };
     }
@@ -525,7 +539,6 @@ public class LLVMActions extends ZeonBaseListener {
                 (target == Type.INT || target == Type.LONG_INT)) {
             LLVMGenerator.fptosi(value, current, target);
         }
-
         else
             return value;
 
@@ -539,6 +552,9 @@ public class LLVMActions extends ZeonBaseListener {
             return Type.FLOAT;
         else if (type1 == Type.LONG_INT || type2 == Type.LONG_INT)
             return Type.LONG_INT;
+        else if (type1 == Type.STRING || type2 == Type.STRING) {
+            return Type.STRING;
+        }
         else
             return Type.INT;
     }
@@ -565,7 +581,15 @@ public class LLVMActions extends ZeonBaseListener {
             case "int" -> Type.INT;
             case "void" -> Type.VOID;
             case "bool" -> Type.BOOL;
+            case "string" -> Type.STRING;
             default -> null;
         };
+    }
+
+    @Override
+    public void exitStringLit(ZeonParser.StringLitContext ctx) {
+        String value = LLVMGenerator.stringConstant(ctx.STRING().getText());
+        valueStack.push(value);
+        typeStack.push(Type.STRING);
     }
 }
