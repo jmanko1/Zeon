@@ -199,8 +199,28 @@ public class LLVMGenerator {
         br++;
         brStack.push(br);
 
-        buffer += "br i1 " + cond + ", label %true" + br + ", label %false" + br + "\n";
-        buffer += "true" + br + ":\n";
+        buffer += "br i1 " + cond + ", label %if_true" + br + ", label %if_false" + br + "\n";
+        buffer += "if_true" + br + ":\n";
+    }
+
+    static void startElse() {
+        int b = brStack.peek();
+        buffer += "br label %if_end" + b + "\n";
+        buffer += "if_false" + b + ":\n";
+    }
+
+    static void endIfElse() {
+        int b = brStack.pop();
+        buffer += "br label %if_end" + b + "\n";
+        buffer += "if_end" + b + ":\n";
+    }
+
+    static void endIfWithoutElse() {
+        int b = brStack.pop();
+        buffer += "br label %if_end" + b + "\n";
+        buffer += "if_false" + b + ":\n";
+        buffer += "br label %if_end" + b + "\n";
+        buffer += "if_end" + b + ":\n";
     }
 
     static void icmp(String valueLeft, String op, String valueRight, Type targetType) {
@@ -233,14 +253,6 @@ public class LLVMGenerator {
 
         buffer += "%" + tmp + " = fcmp " + cond + " " + type + " " + valueLeft+ ", " + valueRight + "\n";
         tmp++;
-    }
-
-    static void endIf() {
-        int b = brStack.pop();
-        if (!buffer.trim().contains("ret ")) {
-            buffer += "br label %false" + b + "\n";
-        }
-        buffer += "false" + b + ":\n";
     }
 
     static void startWhile() {

@@ -218,7 +218,39 @@ public class LLVMActions extends ZeonBaseListener {
         localVariables.push(new HashSet<>());
     }
 
+    @Override
+    public void exitBlockif(ZeonParser.BlockifContext ctx) {
+        localVariables.pop();
 
+        if (ctx.getParent() instanceof ZeonParser.BlockifelseContext parent) {
+            if (parent.blockelse() != null) {
+                LLVMGenerator.startElse();
+            } else {
+                LLVMGenerator.endIfWithoutElse();
+            }
+        }
+
+        if (localVariables.size() <= 1 && currentFunction == null) {
+            global = true;
+        }
+    }
+
+    @Override
+    public void enterBlockelse(ZeonParser.BlockelseContext ctx) {
+        global = false;
+        localVariables.push(new HashSet<>());
+    }
+
+    @Override
+    public void exitBlockelse(ZeonParser.BlockelseContext ctx) {
+        localVariables.pop();
+
+        LLVMGenerator.endIfElse();
+
+        if (localVariables.size() <= 1 && currentFunction == null) {
+            global = true;
+        }
+    }
 
     @Override
     public void exitAtomCond(ZeonParser.AtomCondContext ctx) {
@@ -297,16 +329,6 @@ public class LLVMActions extends ZeonBaseListener {
             typeStack.pop();
             LLVMGenerator.startIf(condResult);
         }
-    }
-
-    @Override
-    public void exitBlockif(ZeonParser.BlockifContext ctx) {
-        localVariables.pop();
-        if (localVariables.size() <= 1 && currentFunction == null) {
-            global = true;
-        }
-
-        LLVMGenerator.endIf();
     }
 
     @Override
